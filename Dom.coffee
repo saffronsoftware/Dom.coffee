@@ -1,6 +1,6 @@
 ###
 Dom.coffee
-v1.0
+v1.0.0
 Written at Phyramid (http://phyramid.com)
 ###
 
