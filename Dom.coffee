@@ -1,3 +1,9 @@
+###
+Dom.coffee
+v1.0
+Written at Phyramid (http://phyramid.com)
+###
+
 class Dom
   ###
   Stores display data for elements (used for `show()` and `hide()`).
