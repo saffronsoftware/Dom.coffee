@@ -69,7 +69,7 @@ class Dom
     ###
     el.removeAttribute('disabled')
 
-  @attachEventListener = (el, type, handler) ->
+  @bind = (el, type, handler) ->
     ###
     Attach a handler of type `type` with function `handler` to element `el`.
     ###
