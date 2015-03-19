@@ -1,0 +1,11 @@
+{
+  "name": "Dom.coffee",
+  "version": "1.0.1",
+  "private": true,
+  "devDependencies": {
+    "coffee-script": "^1.9.1",
+    "gulp": "^3.8.8",
+    "gulp-coffee": "~2.0.1",
+    "gulp-util": "^2.2.19"
+  }
+}
