@@ -6,5 +6,5 @@ A lightweight DOM manipulation library written in Coffeescript.
 
 Build at [Phyramid](http://www.phyramid.com).
 
-`matches()` from [desandro/matches-selector](https://github.com/desandro/matches-selector).
+`matches()` and relevant tests from [desandro/matches-selector](https://github.com/desandro/matches-selector).
 
