@@ -1,6 +1,7 @@
 
 /*
-Dom.coffee v1.1.0
+Dom.coffee
+https://github.com/vladh/Dom.coffee
  */
 var Dom;
 
