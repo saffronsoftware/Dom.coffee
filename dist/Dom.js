@@ -1,12 +1,103 @@
+
+/*
+Dom.coffee v1.1.0
+ */
 var Dom;
 
 Dom = {};
+
+Dom.matches = (function() {
+
+  /*
+  Inspired by:
+    https://github.com/desandro/matches-selector
+    matchesSelector v1.0.3
+    MIT license
+   */
+  var div, ensureHasParent, getMatchesMethod, match, matchChild, matchesMethod, matchesSelector, qsaFallback, supportsOrphans;
+  ensureHasParent = function(elem) {
+    var fragment;
+    if (elem.parentNode) {
+      return;
+    }
+    fragment = document.createDocumentFragment();
+    return fragment.appendChild(elem);
+  };
+  qsaFallback = function(elem, selector) {
+    var elems, i, _i, _ref;
+    ensureHasParent(elem);
+    elems = elem.parentNode.querySelectorAll(selector);
+    for (i = _i = 0, _ref = elems.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+      if (elems[i] === elem) {
+        return true;
+      }
+    }
+    return false;
+  };
+  matchChild = function(elem, selector) {
+    ensureHasParent(elem);
+    return match(elem, selector);
+  };
+  getMatchesMethod = function() {
+    var i, method, prefix, prefixes, _i, _ref;
+    if (Element.prototype.matches) {
+      return 'matches';
+    }
+    if (Element.prototype.matchesSelector) {
+      return 'matchesSelector';
+    }
+    prefixes = ['webkit', 'moz', 'ms', 'o'];
+    for (i = _i = 0, _ref = prefixes.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+      prefix = prefixes[i];
+      method = prefix + 'MatchesSelector';
+      if (Element.prototype[method]) {
+        return method;
+      }
+    }
+  };
+  matchesMethod = getMatchesMethod();
+  match = function(elem, selector) {
+    return elem[matchesMethod](selector);
+  };
+  matchesSelector = null;
+  if (matchesMethod) {
+    div = document.createElement('div');
+    supportsOrphans = match(div, 'div');
+    matchesSelector = supportsOrphans ? match : matchChild;
+  } else {
+    matchesSelector = qsaFallback;
+  }
+  return matchesSelector;
+})();
+
+Dom.isNode = function(el) {
+
+  /*
+  Returns true if `el` is a DOM Node.
+   */
+  if (typeof Node === 'object') {
+    return el instanceof Node;
+  } else {
+    return el && typeof el === 'object' && typeof el.nodeType === 'number' && typeof el.nodeName === 'string';
+  }
+};
+
+Dom.isElement = function(el) {
+
+  /*
+  Returns true if `el` is a DOM element.
+   */
+  if (typeof HTMLElement === 'object') {
+    return el instanceof HTMLElement;
+  } else {
+    return el && typeof el === 'object' && el !== null && el.nodeType === 1 && typeof el.nodeName === 'string';
+  }
+};
 
 
 /*
 Stores display data for elements (used for `show()` and `hide()`).
  */
-
 Dom.elemData = {};
 
 Dom.hide = function(el) {
@@ -122,56 +213,18 @@ Dom.bindAll = function(els, type, handler) {
   });
 };
 
-Dom.matches = function(el, selector) {
-
-  /*
-  Returns true if `el` matches `selector`.
-  Adapted from https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
-   */
-  var i, matches;
-  matches = (el.parentNode || el.document || el.ownerDocument).querySelectorAll(selector);
-  i = 0;
-  while (matches[i] && matches[i] !== el) {
-    i++;
-  }
-  return matches[i] != null;
-};
-
 Dom.closestParent = function(el, selector) {
 
   /*
   Returns `el`'s first parent that matches `selector`, or null if none is found.
   TODO: Add polyfills here.
    */
+  el = el.parentNode;
   while (el) {
-    el = el.parentNode;
     if (Dom.matches(el, selector)) {
       return el;
     }
+    el = el.parentNode;
   }
   return null;
-};
-
-Dom.isNode = function(el) {
-
-  /*
-  Returns true if `el` is a DOM Node.
-   */
-  if (typeof Node === 'object') {
-    return el instanceof Node;
-  } else {
-    return el && typeof el === 'object' && typeof el.nodeType === 'number' && typeof el.nodeName === 'string';
-  }
-};
-
-Dom.isElement = function(el) {
-
-  /*
-  Returns true if `el` is a DOM element.
-   */
-  if (typeof HTMLElement === 'object') {
-    return el instanceof HTMLElement;
-  } else {
-    return el && typeof el === 'object' && el !== null && el.nodeType === 1 && typeof el.nodeName === 'string';
-  }
 };

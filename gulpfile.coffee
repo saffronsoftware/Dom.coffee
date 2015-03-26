@@ -1,6 +1,8 @@
 gulp = require('gulp')
 gutil = require('gulp-util')
 coffee = require('gulp-coffee')
+async = require('async')
+concat = require('gulp-concat')
 
 handleErrors = (stream) ->
   stream.on 'error', ->
@@ -8,9 +10,24 @@ handleErrors = (stream) ->
     stream.end()
 
 gulp.task 'coffee', ->
-  gulp.src('./src/**/*.coffee')
-      .pipe(handleErrors(coffee({bare: true})))
-      .pipe(gulp.dest('./dist/'))
+  async.series [
+    (done) ->
+      gulp.src('./src/**/*.coffee')
+          .pipe(handleErrors(coffee({bare: true})))
+          .pipe(gulp.dest('./compiled/'))
+          .on('end', done)
+    (done) ->
+      gulp.src([
+        './compiled/main.js'
+        './compiled/matches.js'
+        './compiled/checks.js'
+        './compiled/manipulation.js'
+        './compiled/events.js'
+        './compiled/traversal.js'
+      ]).pipe(concat('Dom.js'))
+        .pipe(gulp.dest('./dist'))
+        .on('end', done)
+  ]
 
 gulp.task 'watch', ->
   gulp.watch('./src/**/*.coffee', ['coffee'])
