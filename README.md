@@ -1,4 +1,4 @@
-# Dom.js
+# Dom.coffee
 
 A lightweight DOM manipulation library written in Coffeescript.
 
