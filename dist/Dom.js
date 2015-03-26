@@ -9,7 +9,7 @@ Dom = {};
 Dom.matches = (function() {
 
   /*
-  Inspired by:
+  From:
     https://github.com/desandro/matches-selector
     matchesSelector v1.0.3
     MIT license

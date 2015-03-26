@@ -1,6 +1,6 @@
 Dom.matches = do ->
   ###
-  Inspired by:
+  From:
     https://github.com/desandro/matches-selector
     matchesSelector v1.0.3
     MIT license
