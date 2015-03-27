@@ -104,7 +104,7 @@ Dom.extend({
 })();
 
 (function() {
-  var append, disable, empty, enable, getAttribute, html, removeAttribute, setAttribute;
+  var append, appendTo, disable, empty, enable, getAttribute, html, remove, removeAttribute, setAttribute;
   empty = function(el) {
     return el.innerHTML = '';
   };
@@ -121,6 +121,9 @@ Dom.extend({
       throw new Exception("Invalid argument");
     }
   };
+  appendTo = function(el, parent) {
+    return parent.appendChild(el);
+  };
   getAttribute = function(el, attr) {
     return el.getAttribute(attr);
   };
@@ -136,6 +139,9 @@ Dom.extend({
   enable = function(el) {
     return removeAttribute(el, 'disabled');
   };
+  remove = function(el) {
+    return el.parentNode.removeChild(el);
+  };
   return Dom.prototype.extend({
     empty: function() {
       return this.map(empty);
@@ -148,6 +154,11 @@ Dom.extend({
     append: function(content) {
       return this.map(function(el) {
         return append(el, content);
+      });
+    },
+    appendTo: function(parent) {
+      return this.map(function(el) {
+        return appendTo(el, parent);
       });
     },
     attr: function(attr, value) {
@@ -166,6 +177,9 @@ Dom.extend({
     },
     enable: function() {
       return this.map(enable);
+    },
+    remove: function() {
+      return this.map(remove);
     }
   });
 })();
@@ -188,11 +202,23 @@ Dom.extend({
     return el.style[name] = value;
   };
   hide = function(el) {
-    Dom.setElemData(el, 'oldDisplay', getStyle(el, 'display'));
+    var display;
+    if (!isVisible(el)) {
+      return;
+    }
+    display = getStyle(el, 'display');
+    if (display !== 'none') {
+      Dom.setElemData(el, 'oldDisplay', display);
+    }
     return setStyle(el, 'display', 'none');
   };
   show = function(el) {
-    return setStyle(el, 'display', Dom.getElemData(el, 'oldDisplay') || '');
+    var newDisplay;
+    if (isVisible(el)) {
+      return;
+    }
+    newDisplay = Dom.getElemData(el, 'oldDisplay') || Dom.getDefaultDisplay(el.tagName);
+    return setStyle(el, 'display', newDisplay);
   };
   isVisible = function(el) {
     return getStyle(el, 'display') !== 'none';
@@ -208,11 +234,11 @@ Dom.extend({
     style: function(name, value) {
       if (value != null) {
         return this.map(function(el) {
-          return getStyle(el, name);
+          return setStyle(el, name, value);
         });
       } else {
         return this.map(function(el) {
-          return setStyle(el, name, value);
+          return getStyle(el, name);
         });
       }
     },
@@ -343,5 +369,39 @@ Dom.extend({
         return closestParent(el, selector);
       });
     }
+  });
+})();
+
+(function() {
+  var getDefaultDisplay;
+  getDefaultDisplay = function(nodeName) {
+
+    /*
+    If we don't already know the default display, try making an element with
+    that nodeName and getting its display.
+     */
+    var display, el;
+    if (Dom.defaultDisplays[nodeName] != null) {
+      return Dom.defaultDisplays[nodeName];
+    }
+    el = Dom(document.createElement(nodeName));
+    el.appendTo(document.body);
+    display = el.style('display');
+    Dom.defaultDisplays[nodeName] = display;
+    el.remove();
+    display || (display = 'block');
+
+    /*
+    Apparently the createElement method may fail, and we would have to read
+    the value from inside an iframe. Maybe account for this at some point.
+     */
+    return display;
+  };
+  return Dom.extend({
+    defaultDisplays: {
+      HTML: 'block',
+      BODY: 'block'
+    },
+    getDefaultDisplay: getDefaultDisplay
   });
 })();

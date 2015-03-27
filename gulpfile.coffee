@@ -25,6 +25,7 @@ gulp.task 'coffee', ->
         './compiled/css.js'
         './compiled/events.js'
         './compiled/traversal.js'
+        './compiled/defaultDisplay.js'
       ]).pipe(concat('Dom.js'))
         .pipe(gulp.dest('./dist'))
         .on('end', done)

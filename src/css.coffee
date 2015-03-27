@@ -13,11 +13,16 @@ do ->
     el.style[name] = value
 
   hide = (el) ->
-    Dom.setElemData(el, 'oldDisplay', getStyle(el, 'display'))
+    return if !isVisible(el)
+    display = getStyle(el, 'display')
+    Dom.setElemData(el, 'oldDisplay', display) if display != 'none'
     setStyle(el, 'display', 'none')
 
   show = (el) ->
-    setStyle(el, 'display', Dom.getElemData(el, 'oldDisplay') || '')
+    return if isVisible(el)
+    newDisplay = Dom.getElemData(el, 'oldDisplay') ||
+                 Dom.getDefaultDisplay(el.tagName)
+    setStyle(el, 'display', newDisplay)
 
   isVisible = (el) ->
     getStyle(el, 'display') != 'none'
@@ -31,9 +36,9 @@ do ->
   Dom.prototype.extend {
     style: (name, value) ->
       if value?
-        @map (el) -> getStyle(el, name)
-      else
         @map (el) -> setStyle(el, name, value)
+      else
+        @map (el) -> getStyle(el, name)
     show: -> @map(show)
     hide: -> @map(hide)
     isVisible: -> @map(isVisible)
