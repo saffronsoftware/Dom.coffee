@@ -20,7 +20,7 @@ do ->
     setStyle(el, 'display', Dom.getElemData(el, 'oldDisplay') || '')
 
   isVisible = (el) ->
-    getStyle(el, 'display') == 'none'
+    getStyle(el, 'display') != 'none'
 
   toggle = (el) ->
     if isVisible(el)

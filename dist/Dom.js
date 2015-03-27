@@ -195,7 +195,7 @@ Dom.extend({
     return setStyle(el, 'display', Dom.getElemData(el, 'oldDisplay') || '');
   };
   isVisible = function(el) {
-    return getStyle(el, 'display') === 'none';
+    return getStyle(el, 'display') !== 'none';
   };
   toggle = function(el) {
     if (isVisible(el)) {
