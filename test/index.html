@@ -7,7 +7,12 @@
     <script src="../bower_components/qunit/qunit/qunit.js"></script>
   </head>
   <body>
-    <div id="alpha" class="item red"></div>
+    <div class="test-elems">
+      <div id="alpha" class="item red"></div>
+      <div id="foo"></div>
+      <div id="mrfoo" class="foo"></div>
+      <div id="msfoo" class="foo"></div>
+    </div>
     <div id="qunit"></div>
     <script src="../dist/Dom.js"></script>
     <script src="./test.js"></script>

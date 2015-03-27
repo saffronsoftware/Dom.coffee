@@ -21,7 +21,8 @@ gulp.task 'coffee', ->
         './compiled/main.js'
         './compiled/matches.js'
         './compiled/checks.js'
-        './compiled/manipulation.js'
+        './compiled/html.js'
+        './compiled/css.js'
         './compiled/events.js'
         './compiled/traversal.js'
       ]).pipe(concat('Dom.js'))
