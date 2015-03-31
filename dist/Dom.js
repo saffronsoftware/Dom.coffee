@@ -258,7 +258,7 @@ Dom.extend({
 })();
 
 (function() {
-  var bind;
+  var bind, loaded;
   bind = function(el, type, handler) {
     if (el.addEventListener) {
       return el.addEventListener(type, handler, false);
@@ -268,12 +268,18 @@ Dom.extend({
       return el['on' + type] = handler;
     }
   };
-  return Dom.prototype.extend({
+  Dom.prototype.extend({
     bind: function(type, handler) {
       return this.map(function(el) {
         return bind(el, type, handler);
       });
     }
+  });
+  loaded = function(done) {
+    return bind(document, 'DOMContentLoaded', done);
+  };
+  return Dom.extend({
+    loaded: loaded
   });
 })();
 

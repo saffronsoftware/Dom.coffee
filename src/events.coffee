@@ -11,3 +11,10 @@ do ->
     bind: (type, handler) ->
       @map (el) -> bind(el, type, handler)
   }
+
+  loaded = (done) ->
+    bind(document, 'DOMContentLoaded', done)
+
+  Dom.extend {
+    loaded: loaded
+  }
