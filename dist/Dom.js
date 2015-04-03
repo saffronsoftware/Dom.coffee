@@ -185,7 +185,8 @@ Dom.extend({
 })();
 
 (function() {
-  var getStyle, hide, isVisible, setStyle, show, toggle;
+  var addClass, containsClass, getStyle, hasClass, hide, isVisible, reNotWhitespace, removeClass, setStyle, show, spaceClass, toggle, toggleClass, trimClass;
+  reNotWhitespace = /\S+/g;
   getStyle = function(el, name) {
 
     /*
@@ -230,6 +231,69 @@ Dom.extend({
       return show(el);
     }
   };
+  trimClass = function(cls) {
+    return cls.replace(/[\t\r\n\f]/g, ' ');
+  };
+  spaceClass = function(cls) {
+    if (cls) {
+      return ' ' + trimClass(cls) + ' ';
+    } else {
+      return ' ';
+    }
+  };
+  containsClass = function(parent, child) {
+    return spaceClass(parent).indexOf(spaceClass(child)) !== -1;
+  };
+  hasClass = function(el, cls) {
+    return containsClass(el.className, cls);
+  };
+  removeClass = function(el, strClasses) {
+    var classes;
+    classes = strClasses.match(reNotWhitespace) || [];
+    if (classes.length === 0) {
+      return;
+    }
+    return classes.map(function(cls) {
+      var newClassName;
+      if (!hasClass(el, cls)) {
+        return;
+      }
+      newClassName = el.className;
+      while (containsClass(newClassName, cls)) {
+        newClassName = spaceClass(newClassName).replace(spaceClass(cls), ' ');
+      }
+      return el.className = newClassName.trim();
+    });
+  };
+  addClass = function(el, strClasses) {
+    var classes;
+    classes = strClasses.match(reNotWhitespace) || [];
+    if (classes.length === 0) {
+      return;
+    }
+    return classes.map(function(cls) {
+      var newClassName;
+      if (hasClass(el, cls)) {
+        return;
+      }
+      newClassName = spaceClass(el.className) + cls + ' ';
+      return el.className = newClassName.trim();
+    });
+  };
+  toggleClass = function(el, strClasses) {
+    var classes;
+    classes = strClasses.match(reNotWhitespace) || [];
+    if (classes.length === 0) {
+      return;
+    }
+    return classes.map(function(cls) {
+      if (hasClass(el, cls)) {
+        return removeClass(el, cls);
+      } else {
+        return addClass(el, cls);
+      }
+    });
+  };
   return Dom.prototype.extend({
     style: function(name, value) {
       if (value != null) {
@@ -253,6 +317,26 @@ Dom.extend({
     },
     toggle: function() {
       return this.map(toggle);
+    },
+    addClass: function(cls) {
+      return this.map(function(el) {
+        return addClass(el, cls);
+      });
+    },
+    removeClass: function(cls) {
+      return this.map(function(el) {
+        return removeClass(el, cls);
+      });
+    },
+    toggleClass: function(cls) {
+      return this.map(function(el) {
+        return toggleClass(el, cls);
+      });
+    },
+    hasClass: function(cls) {
+      return this.map(function(el) {
+        return hasClass(el, cls);
+      });
     }
   });
 })();
