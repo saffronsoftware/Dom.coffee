@@ -71,7 +71,7 @@ all occurences of a class if it occurs multiple times.
 
 ##### Example
 ```coffee
-Dom('.hi.there').addClass('here')
+Dom('.hi.there').removeClass('hi')
 # Element will now have class .there
 ```
 
