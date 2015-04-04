@@ -53,11 +53,17 @@ do ->
   parent = (el) -> el.parentNode
 
   closestParent = (el, selector) ->
+    return if el.nodeType == 9
     el = el.parentNode
-    while el
-      return el if matches(el, selector)
+    while el && el.nodeType != 9
+      return el if el.nodeType == 1 && matches(el, selector)
       el = parent(el)
     return null
+
+  find = (el, selector) ->
+    matches = el.querySelectorAll(selector)
+    return matches[0] if matches.length == 1
+    return matches
 
   Dom.prototype.extend {
     matches: (selector) ->
@@ -65,4 +71,6 @@ do ->
     parent: -> @map(parent)
     closestParent: (selector) ->
       @map (el) -> closestParent(el, selector)
+    find: (selector) ->
+      @map (el) -> find(el, selector)
   }

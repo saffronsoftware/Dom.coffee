@@ -104,7 +104,7 @@ Dom.extend({
 })();
 
 (function() {
-  var append, appendTo, disable, empty, enable, getAttribute, html, remove, removeAttribute, setAttribute;
+  var append, appendTo, disable, empty, enable, getAttribute, getValue, html, remove, removeAttribute, setAttribute, setValue;
   empty = function(el) {
     return el.innerHTML = '';
   };
@@ -124,14 +124,14 @@ Dom.extend({
   appendTo = function(el, parent) {
     return parent.appendChild(el);
   };
-  getAttribute = function(el, attr) {
-    return el.getAttribute(attr);
+  getAttribute = function(el, name) {
+    return el.getAttribute(name);
   };
-  setAttribute = function(el, attr, value) {
-    return el.setAttribute(attr, value);
+  setAttribute = function(el, name, value) {
+    return el.setAttribute(name, value);
   };
-  removeAttribute = function(el, attr) {
-    return el.removeAttribute(attr);
+  removeAttribute = function(el, name) {
+    return el.removeAttribute(name);
   };
   disable = function(el) {
     return setAttribute(el, 'disabled', 'disabled');
@@ -141,6 +141,12 @@ Dom.extend({
   };
   remove = function(el) {
     return el.parentNode.removeChild(el);
+  };
+  setValue = function(el, value) {
+    return el.value = value;
+  };
+  getValue = function(el) {
+    return el.value;
   };
   return Dom.prototype.extend({
     empty: function() {
@@ -161,16 +167,21 @@ Dom.extend({
         return appendTo(el, parent);
       });
     },
-    attr: function(attr, value) {
+    attr: function(name, value) {
       if (value != null) {
         return this.map(function(el) {
-          return setAttribute(el, attr, value);
+          return setAttribute(el, name, value);
         });
       } else {
         return this.map(function(el) {
-          return getAttribute(el, attr);
+          return getAttribute(el, name);
         });
       }
+    },
+    removeAttr: function(name) {
+      return this.map(function(el) {
+        return removeAttribute(el, name);
+      });
     },
     disable: function() {
       return this.map(disable);
@@ -180,6 +191,17 @@ Dom.extend({
     },
     remove: function() {
       return this.map(remove);
+    },
+    value: function(value) {
+      if (value != null) {
+        return this.map(function(el) {
+          return setValue(el, value);
+        });
+      } else {
+        return this.map(function(el) {
+          return getValue(el);
+        });
+      }
     }
   });
 })();
@@ -368,7 +390,7 @@ Dom.extend({
 })();
 
 (function() {
-  var closestParent, matches, parent;
+  var closestParent, find, matches, parent;
   matches = (function() {
 
     /*
@@ -436,14 +458,24 @@ Dom.extend({
     return el.parentNode;
   };
   closestParent = function(el, selector) {
+    if (el.nodeType === 9) {
+      return;
+    }
     el = el.parentNode;
-    while (el) {
-      if (matches(el, selector)) {
+    while (el && el.nodeType !== 9) {
+      if (el.nodeType === 1 && matches(el, selector)) {
         return el;
       }
       el = parent(el);
     }
     return null;
+  };
+  find = function(el, selector) {
+    matches = el.querySelectorAll(selector);
+    if (matches.length === 1) {
+      return matches[0];
+    }
+    return matches;
   };
   return Dom.prototype.extend({
     matches: function(selector) {
@@ -457,6 +489,11 @@ Dom.extend({
     closestParent: function(selector) {
       return this.map(function(el) {
         return closestParent(el, selector);
+      });
+    },
+    find: function(selector) {
+      return this.map(function(el) {
+        return find(el, selector);
       });
     }
   });

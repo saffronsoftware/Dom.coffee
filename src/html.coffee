@@ -15,17 +15,21 @@ do ->
   appendTo = (el, parent) ->
     parent.appendChild(el)
 
-  getAttribute = (el, attr) -> el.getAttribute(attr)
+  getAttribute = (el, name) -> el.getAttribute(name)
 
-  setAttribute = (el, attr, value) -> el.setAttribute(attr, value)
+  setAttribute = (el, name, value) -> el.setAttribute(name, value)
 
-  removeAttribute = (el, attr) -> el.removeAttribute(attr)
+  removeAttribute = (el, name) -> el.removeAttribute(name)
 
   disable = (el) -> setAttribute(el, 'disabled', 'disabled')
 
   enable = (el) -> removeAttribute(el, 'disabled')
 
   remove = (el) -> el.parentNode.removeChild(el)
+
+  setValue = (el, value) -> el.value = value
+
+  getValue = (el) -> el.value
 
   Dom.prototype.extend {
     empty: -> @map(empty)
@@ -35,12 +39,19 @@ do ->
       @map (el) -> append(el, content)
     appendTo: (parent) ->
       @map (el) -> appendTo(el, parent)
-    attr: (attr, value) ->
+    attr: (name, value) ->
       if value?
-        @map (el) -> setAttribute(el, attr, value)
+        @map (el) -> setAttribute(el, name, value)
       else
-        @map (el) -> getAttribute(el, attr)
+        @map (el) -> getAttribute(el, name)
+    removeAttr: (name) ->
+      @map (el) -> removeAttribute(el, name)
     disable: -> @map(disable)
     enable: -> @map(enable)
     remove: -> @map(remove)
+    value: (value) ->
+      if value?
+        @map (el) -> setValue(el, value)
+      else
+        @map (el) -> getValue(el)
   }
