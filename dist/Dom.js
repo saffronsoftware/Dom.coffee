@@ -29,12 +29,16 @@ Dom.extend = Dom.prototype.extend = function() {
 Dom.prototype.init = function(element) {
 
   /*
-  Takes either a DOM element or a selector.
+  Takes either a DOM element or an array of DOM elements or NodeList a selector.
   @els is the list of elements for this instance.
   @elemData stores various data stored for elements (e.g. old display value).
    */
   if (Dom.isElement(element)) {
     this.els = [element];
+  } else if (element.constructor === Array && element.every(Dom.isElement)) {
+    this.els = element;
+  } else if (element.constructor.name === 'NodeList' && [].slice.call(element).every(Dom.isElement)) {
+    this.els = [].slice.call(element);
   } else if (Dom.isSelector(element)) {
     this.els = [].slice.apply(document.querySelectorAll(element));
   } else {
@@ -473,7 +477,7 @@ Dom.extend({
     return matchesSelector;
   })();
   parent = function(el) {
-    return el.parentNode;
+    return Dom(el.parentNode);
   };
   closestParent = function(el, selector) {
     if (el.nodeType === 9) {
@@ -482,7 +486,7 @@ Dom.extend({
     el = el.parentNode;
     while (el && el.nodeType !== 9) {
       if (el.nodeType === 1 && matches(el, selector)) {
-        return el;
+        return Dom(el);
       }
       el = parent(el);
     }
@@ -490,10 +494,7 @@ Dom.extend({
   };
   find = function(el, selector) {
     matches = el.querySelectorAll(selector);
-    if (matches.length === 1) {
-      return matches[0];
-    }
-    return matches;
+    return Dom(matches);
   };
   return Dom.prototype.extend({
     matches: function(selector) {

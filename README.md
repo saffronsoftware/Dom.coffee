@@ -246,23 +246,22 @@ Whether or not the element matches the given selector.
 
 #### `.parent()`
 ##### Returns
-The element's parent DOM element (not a Dom.coffee instance).
+A Dom instance with the element's parent.
 
 #### `.closestParent(selector)`
 ##### Arguments
 * `selector`: A selector string
 
 ##### Returns
-The closest parent of this element that matches `selector`. A DOM element
-(not a Dom.coffee element) is returned.
+A Dom instance with the closest parent of this element that matches `selector`,
+or null if none is found.
 
 #### `.find(selector)`
 ##### Arguments
 * `selector`: A selector string
 
 ##### Returns
-This element's children that match `selector`. DOM elements (not Dom.coffee
-instances) are returned.
+A new Dom instance with the element's children that match `selector`.
 
 ### Checks
 

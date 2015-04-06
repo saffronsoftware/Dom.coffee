@@ -20,12 +20,16 @@ Dom.extend = Dom.prototype.extend = ->
 
 Dom.prototype.init = (element) ->
   ###
-  Takes either a DOM element or a selector.
+  Takes either a DOM element or an array of DOM elements or NodeList a selector.
   @els is the list of elements for this instance.
   @elemData stores various data stored for elements (e.g. old display value).
   ###
   if Dom.isElement(element)
     @els = [element]
+  else if element.constructor == Array && element.every(Dom.isElement)
+    @els = element
+  else if element.constructor.name == 'NodeList' && [].slice.call(element).every(Dom.isElement)
+    @els = [].slice.call(element)
   else if Dom.isSelector(element)
     @els = [].slice.apply(document.querySelectorAll(element))
   else
