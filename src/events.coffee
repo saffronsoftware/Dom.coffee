@@ -10,6 +10,7 @@ do ->
   Dom.prototype.extend {
     bind: (type, handler) ->
       @map (el) -> bind(el, type, handler)
+      return this
   }
 
   loaded = (done) ->

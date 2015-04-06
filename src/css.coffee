@@ -82,18 +82,29 @@ do ->
     style: (name, value) ->
       if value?
         @map (el) -> setStyle(el, name, value)
+        return this
       else
         @map (el) -> getStyle(el, name)
-    show: -> @map(show)
-    hide: -> @map(hide)
-    isVisible: -> @map(isVisible)
-    toggle: -> @map(toggle)
+    show: ->
+      @map(show)
+      return this
+    hide: ->
+      @map(hide)
+      return this
+    isVisible: ->
+      @map(isVisible)
+    toggle: ->
+      @map(toggle)
+      return this
     addClass: (cls) ->
       @map (el) -> addClass(el, cls)
+      return this
     removeClass: (cls) ->
       @map (el) -> removeClass(el, cls)
+      return this
     toggleClass: (cls) ->
       @map (el) -> toggleClass(el, cls)
+      return this
     hasClass: (cls) ->
       @map (el) -> hasClass(el, cls)
   }

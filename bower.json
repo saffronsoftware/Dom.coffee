@@ -1,6 +1,6 @@
 {
   "name": "Dom.coffee",
-  "version": "2.0.5",
+  "version": "2.1.5",
   "description": "A lightweight DOM manipulation library written in Coffeescript.",
   "main": "./dist/Dom.js",
   "moduleType": [

@@ -32,26 +32,40 @@ do ->
   getValue = (el) -> el.value
 
   Dom.prototype.extend {
-    empty: -> @map(empty)
+    empty: ->
+      @map(empty)
+      return this
     html: (content) ->
       @map (el) -> html(el, content)
+      return this
     append: (content) ->
       @map (el) -> append(el, content)
+      return this
     appendTo: (parent) ->
       @map (el) -> appendTo(el, parent)
+      return this
     attr: (name, value) ->
       if value?
         @map (el) -> setAttribute(el, name, value)
+        return this
       else
         @map (el) -> getAttribute(el, name)
     removeAttr: (name) ->
       @map (el) -> removeAttribute(el, name)
-    disable: -> @map(disable)
-    enable: -> @map(enable)
-    remove: -> @map(remove)
+      return this
+    disable: ->
+      @map(disable)
+      return this
+    enable: ->
+      @map(enable)
+      return this
+    remove: ->
+      @map(remove)
+      return this
     value: (value) ->
       if value?
         @map (el) -> setValue(el, value)
+        return this
       else
         @map (el) -> getValue(el)
   }

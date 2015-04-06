@@ -150,28 +150,33 @@ Dom.extend({
   };
   return Dom.prototype.extend({
     empty: function() {
-      return this.map(empty);
+      this.map(empty);
+      return this;
     },
     html: function(content) {
-      return this.map(function(el) {
+      this.map(function(el) {
         return html(el, content);
       });
+      return this;
     },
     append: function(content) {
-      return this.map(function(el) {
+      this.map(function(el) {
         return append(el, content);
       });
+      return this;
     },
     appendTo: function(parent) {
-      return this.map(function(el) {
+      this.map(function(el) {
         return appendTo(el, parent);
       });
+      return this;
     },
     attr: function(name, value) {
       if (value != null) {
-        return this.map(function(el) {
+        this.map(function(el) {
           return setAttribute(el, name, value);
         });
+        return this;
       } else {
         return this.map(function(el) {
           return getAttribute(el, name);
@@ -179,24 +184,29 @@ Dom.extend({
       }
     },
     removeAttr: function(name) {
-      return this.map(function(el) {
+      this.map(function(el) {
         return removeAttribute(el, name);
       });
+      return this;
     },
     disable: function() {
-      return this.map(disable);
+      this.map(disable);
+      return this;
     },
     enable: function() {
-      return this.map(enable);
+      this.map(enable);
+      return this;
     },
     remove: function() {
-      return this.map(remove);
+      this.map(remove);
+      return this;
     },
     value: function(value) {
       if (value != null) {
-        return this.map(function(el) {
+        this.map(function(el) {
           return setValue(el, value);
         });
+        return this;
       } else {
         return this.map(function(el) {
           return getValue(el);
@@ -319,9 +329,10 @@ Dom.extend({
   return Dom.prototype.extend({
     style: function(name, value) {
       if (value != null) {
-        return this.map(function(el) {
+        this.map(function(el) {
           return setStyle(el, name, value);
         });
+        return this;
       } else {
         return this.map(function(el) {
           return getStyle(el, name);
@@ -329,31 +340,37 @@ Dom.extend({
       }
     },
     show: function() {
-      return this.map(show);
+      this.map(show);
+      return this;
     },
     hide: function() {
-      return this.map(hide);
+      this.map(hide);
+      return this;
     },
     isVisible: function() {
       return this.map(isVisible);
     },
     toggle: function() {
-      return this.map(toggle);
+      this.map(toggle);
+      return this;
     },
     addClass: function(cls) {
-      return this.map(function(el) {
+      this.map(function(el) {
         return addClass(el, cls);
       });
+      return this;
     },
     removeClass: function(cls) {
-      return this.map(function(el) {
+      this.map(function(el) {
         return removeClass(el, cls);
       });
+      return this;
     },
     toggleClass: function(cls) {
-      return this.map(function(el) {
+      this.map(function(el) {
         return toggleClass(el, cls);
       });
+      return this;
     },
     hasClass: function(cls) {
       return this.map(function(el) {
@@ -376,9 +393,10 @@ Dom.extend({
   };
   Dom.prototype.extend({
     bind: function(type, handler) {
-      return this.map(function(el) {
+      this.map(function(el) {
         return bind(el, type, handler);
       });
+      return this;
     }
   });
   loaded = function(done) {

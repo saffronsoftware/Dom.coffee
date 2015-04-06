@@ -18,6 +18,7 @@ regular DOM elements.
 
 ##### Returns
 The value of the element's style property `name` if `value` is not given.
+If `value` is given, returns a Dom instance.
 
 If `value` is not set, returns the value of the element's `name` style
 property. If `value` is set, set this property to the given value.
@@ -31,11 +32,17 @@ Dom('.thing').style('display', 'block')
 ```
 
 #### `.show()`
+##### Returns
+A Dom instance.
+
 Shows the element by setting its display to a non-"none" value. This value
 is determined by looking it up in the cache in case `.hide()` put it there,
 or using a value determined by the node type otherwise.
 
 #### `.hide()`
+##### Returns
+A Dom instance.
+
 Hides an element by settings its display to "none". Its previous display
 is cached so that it may be restored when showing the element.
 
@@ -45,10 +52,16 @@ Whether or not the element is visible. This is determined by checking if its
 display is "none".
 
 #### `.toggle()`
+##### Returns
+A Dom instance.
+
 Toggles the element's visibility. If it is visible calls `.hide()`, otherwise
 calls `.show()`.
 
 #### `.addClass(cls)`
+##### Returns
+A Dom instance.
+
 ##### Arguments
 * `cls`: A class name or whitespace-separated class list
 
@@ -62,6 +75,9 @@ Dom('.foo').addClass('hi there')
 ```
 
 #### `.removeClass(cls)`
+##### Returns
+A Dom instance.
+
 ##### Arguments
 * `cls`: A class name or whitespace-separated class list
 
@@ -76,6 +92,9 @@ Dom('.hi.there').removeClass('hi')
 ```
 
 #### `.toggleClass(cls)`
+##### Returns
+A Dom instance.
+
 ##### Arguments
 * `cls`: A class name or whitespace-separated class list
 
@@ -98,15 +117,24 @@ have all of them for this method to return true.
 
 ### HTML
 #### `.empty()`
+##### Returns
+A Dom instance.
+
 Sets element's innerHTML to an empty string, removing its contents.
 
 #### `.html(content)`
+##### Returns
+A Dom instance.
+
 ##### Arguments
 * `content`: An HTML string
 
 Sets element's innerHTML string to `content`.
 
 #### `.append(content)`
+##### Returns
+A Dom instance.
+
 ##### Arguments
 * `content`: Either (1) an HTML string or (2) a DOM element
 
@@ -119,8 +147,11 @@ Dom('.bar').append(document.createElement('p'))
 ```
 
 #### `.appendTo(parent)`
+##### Returns
+A Dom instance.
+
 ##### Arguments
-* `parent`: A DOM element (not a Dom.coffee element)
+* `parent`: A DOM element (not a Dom.coffee instance)
 
 Appends the element to the given `parent`.
 
@@ -130,7 +161,8 @@ Appends the element to the given `parent`.
 * `value`: The optional value to set the attribute to
 
 ##### Returns
-The value for attribute `name` if `value` is not given.
+The value for attribute `name` if `value` is not given. If `value` is given,
+returns a Dom instance.
 
 If `value` is not set, returns the value of the element's `name` attribute.
 If `value` is set, set this attribute to the given value.
@@ -144,18 +176,30 @@ Dom('.thing').attr('data-id', '23')
 ```
 
 #### `.removeAttr(attr)
+##### Returns
+A Dom instance.
+
 ##### Arguments
 * `name`: The name of the attribute
-* 
+
 Removes the element's `name` attribute.
 
 #### `.disable()`
+##### Returns
+A Dom instance.
+
 Sets the element's "disabled" attribute to "disabled".
 
 #### `.enable()`
+##### Returns
+A Dom instance.
+
 Remove the element's "disabled" attribute.
 
 #### `.remove()`
+##### Returns
+A Dom instance.
+
 Removes the element.
 
 #### `.value([value])`
@@ -163,12 +207,17 @@ Removes the element.
 * `value`: The optional value to set the value to
 
 ##### Returns
-The element's current value if `value` is not given.
+The element's current value if `value` is not given. If `value` is given,
+returns a Dom instance.
+
 If `value` is present, sets the element's value to that value. Otherwise,
 returns the element's current value.
 
 ### Events
 #### `.bind(type, handler)`
+##### Returns
+A Dom instance.
+
 ##### Arguments
 * `type`: The event type to bind (e.g. "click", "keyup")
 * `handler`: A function to be run when the event fires
@@ -197,7 +246,7 @@ Whether or not the element matches the given selector.
 
 #### `.parent()`
 ##### Returns
-The element's parent DOM element (not Dom.coffee element).
+The element's parent DOM element (not a Dom.coffee instance).
 
 #### `.closestParent(selector)`
 ##### Arguments
@@ -205,7 +254,7 @@ The element's parent DOM element (not Dom.coffee element).
 
 ##### Returns
 The closest parent of this element that matches `selector`. A DOM element
-(not Dom.coffee element) is returned.
+(not a Dom.coffee element) is returned.
 
 #### `.find(selector)`
 ##### Arguments
@@ -213,20 +262,20 @@ The closest parent of this element that matches `selector`. A DOM element
 
 ##### Returns
 This element's children that match `selector`. DOM elements (not Dom.coffee
-elements) are returned.
+instances) are returned.
 
 ### Checks
 
 #### `Dom.isNode(el)`
 ##### Arguments
-* `el`: A DOM element (not a Dom.coffee element)
+* `el`: A DOM element (not a Dom.coffee instance)
 
 ##### Returns
 Whether or not `el` is a DOM node.
 
 #### `Dom.isElement(el)`
 ##### Arguments
-* `el`: A DOM element (not a Dom.coffee element)
+* `el`: A DOM element (not a Dom.coffee instance)
 
 ##### Returns
 Whether or not `el` is a DOM element.
