@@ -37,7 +37,7 @@ Dom.prototype.init = function(element) {
     this.els = [element];
   } else if (element.constructor === Array && element.every(Dom.isElement)) {
     this.els = element;
-  } else if (element.constructor.name === 'NodeList' && [].slice.call(element).every(Dom.isElement)) {
+  } else if (Dom.isNodeList(element)) {
     this.els = [].slice.call(element);
   } else if (Dom.isSelector(element)) {
     this.els = [].slice.apply(document.querySelectorAll(element));
@@ -78,13 +78,22 @@ Dom.extend({
 });
 
 (function() {
-  var isElement, isNode, isSelector;
+  var isElement, isNode, isNodeList, isSelector;
   isNode = function(el) {
     if (typeof Node === 'object') {
       return el instanceof Node;
     } else {
       return el && typeof el === 'object' && typeof el.nodeType === 'number' && typeof el.nodeName === 'string';
     }
+  };
+  isNodeList = function(x) {
+
+    /*
+    From http://stackoverflow.com/q/7238177/3803222
+     */
+    var stringRepr;
+    stringRepr = Object.prototype.toString.call(x);
+    return typeof x === 'object' && /^\[object (HTMLCollection|NodeList|Object)\]$/.test(stringRepr) && x.hasOwnProperty('length') && (x.length === 0 || (typeof x[0] === "object" && x[0].nodeType > 0));
   };
   isElement = function(el) {
     if (typeof HTMLElement === 'object') {
@@ -102,6 +111,7 @@ Dom.extend({
   };
   return Dom.extend({
     isNode: isNode,
+    isNodeList: isNodeList,
     isElement: isElement,
     isSelector: isSelector
   });

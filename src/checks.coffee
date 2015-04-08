@@ -6,6 +6,16 @@ do ->
       el && typeof el == 'object' && typeof el.nodeType == 'number' &&
       typeof el.nodeName == 'string'
 
+  isNodeList = (x) ->
+    ###
+    From http://stackoverflow.com/q/7238177/3803222
+    ###
+    stringRepr = Object.prototype.toString.call(x)
+    typeof x == 'object' &&
+    /^\[object (HTMLCollection|NodeList|Object)\]$/.test(stringRepr) &&
+    x.hasOwnProperty('length') &&
+    (x.length == 0 || (typeof x[0] == "object" && x[0].nodeType > 0))
+
   isElement = (el) ->
     if typeof HTMLElement == 'object'
       el instanceof HTMLElement
@@ -21,6 +31,7 @@ do ->
 
   Dom.extend {
     isNode: isNode
+    isNodeList: isNodeList
     isElement: isElement
     isSelector: isSelector
   }

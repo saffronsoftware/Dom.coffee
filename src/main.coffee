@@ -28,7 +28,7 @@ Dom.prototype.init = (element) ->
     @els = [element]
   else if element.constructor == Array && element.every(Dom.isElement)
     @els = element
-  else if element.constructor.name == 'NodeList' && [].slice.call(element).every(Dom.isElement)
+  else if Dom.isNodeList(element)
     @els = [].slice.call(element)
   else if Dom.isSelector(element)
     @els = [].slice.apply(document.querySelectorAll(element))
