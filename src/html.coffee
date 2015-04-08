@@ -10,7 +10,7 @@ do ->
     else if Dom.isElement(content)
       el.appendChild(content)
     else
-      throw new Exception("Invalid argument")
+      throw new Error('Dom.coffee: Invalid argument to .append(), must be either string or DOM element')
 
   appendTo = (el, parent) ->
     parent.appendChild(el)

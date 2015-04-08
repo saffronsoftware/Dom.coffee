@@ -33,7 +33,7 @@ Dom.prototype.init = (element) ->
   else if Dom.isSelector(element)
     @els = [].slice.apply(document.querySelectorAll(element))
   else
-    throw Exception("Invalid argument")
+    throw new Error('Dom.coffee: Invalid argument to .init(), must be a DOM element or an array of DOM elements or a NodeList or a selector.')
   return this
 
 # This is for instantiation
