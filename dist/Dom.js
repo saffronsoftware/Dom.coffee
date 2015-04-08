@@ -42,7 +42,7 @@ Dom.prototype.init = function(element) {
   } else if (Dom.isSelector(element)) {
     this.els = [].slice.apply(document.querySelectorAll(element));
   } else {
-    throw Exception("Invalid argument");
+    throw new Error('Dom.coffee: Invalid argument to .init(), must be a DOM element or an array of DOM elements or a NodeList or a selector.');
   }
   return this;
 };
@@ -122,7 +122,7 @@ Dom.extend({
     } else if (Dom.isElement(content)) {
       return el.appendChild(content);
     } else {
-      throw new Exception("Invalid argument");
+      throw new Error('Dom.coffee: Invalid argument to .append(), must be either string or DOM element');
     }
   };
   appendTo = function(el, parent) {
