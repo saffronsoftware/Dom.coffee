@@ -81,30 +81,30 @@ do ->
   Dom.prototype.extend {
     style: (name, value) ->
       if value?
-        @map (el) -> setStyle(el, name, value)
+        @imap (el) -> setStyle(el, name, value)
         return this
       else
-        @map (el) -> getStyle(el, name)
+        @imap (el) -> getStyle(el, name)
     show: ->
-      @map(show)
+      @imap(show)
       return this
     hide: ->
-      @map(hide)
+      @imap(hide)
       return this
     isVisible: ->
-      @map(isVisible)
+      @imap(isVisible)
     toggle: ->
-      @map(toggle)
+      @imap(toggle)
       return this
     addClass: (cls) ->
-      @map (el) -> addClass(el, cls)
+      @imap (el) -> addClass(el, cls)
       return this
     removeClass: (cls) ->
-      @map (el) -> removeClass(el, cls)
+      @imap (el) -> removeClass(el, cls)
       return this
     toggleClass: (cls) ->
-      @map (el) -> toggleClass(el, cls)
+      @imap (el) -> toggleClass(el, cls)
       return this
     hasClass: (cls) ->
-      @map (el) -> hasClass(el, cls)
+      @imap (el) -> hasClass(el, cls)
   }

@@ -43,39 +43,39 @@ do ->
 
   Dom.prototype.extend {
     empty: ->
-      @map(empty)
+      @imap(empty)
       return this
     html: (content) ->
-      @map (el) -> html(el, content)
+      @imap (el) -> html(el, content)
       return this
     append: (content) ->
-      @map (el) -> append(el, content)
+      @imap (el) -> append(el, content)
       return this
     appendTo: (parent) ->
-      @map (el) -> appendTo(el, parent)
+      @imap (el) -> appendTo(el, parent)
       return this
     attr: (name, value) ->
       if value?
-        @map (el) -> setAttribute(el, name, value)
+        @imap (el) -> setAttribute(el, name, value)
         return this
       else
-        @map (el) -> getAttribute(el, name)
+        @imap (el) -> getAttribute(el, name)
     removeAttr: (name) ->
-      @map (el) -> removeAttribute(el, name)
+      @imap (el) -> removeAttribute(el, name)
       return this
     disable: ->
-      @map(disable)
+      @imap(disable)
       return this
     enable: ->
-      @map(enable)
+      @imap(enable)
       return this
     remove: ->
-      @map(remove)
+      @imap(remove)
       return this
     value: (value) ->
       if value?
-        @map (el) -> setValue(el, value)
+        @imap (el) -> setValue(el, value)
         return this
       else
-        @map (el) -> getValue(el)
+        @imap (el) -> getValue(el)
   }

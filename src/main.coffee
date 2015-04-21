@@ -41,7 +41,9 @@ Dom.prototype.init.prototype = Dom.prototype
 
 Dom.prototype.extend {
   map: (fn) ->
-    results = @els.map(fn)
+    @els.map(fn)
+  imap: (fn) ->
+    results = @map(fn)
     return results[0] if results.length == 1
     return results
 }

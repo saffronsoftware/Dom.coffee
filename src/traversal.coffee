@@ -66,12 +66,12 @@ do ->
 
   Dom.prototype.extend {
     matches: (selector) ->
-      @map (el) -> matches(el, selector)
-    parent: -> @map(parent)
+      @imap (el) -> matches(el, selector)
+    parent: -> @imap(parent)
     closestParent: (selector) ->
-      @map (el) -> closestParent(el, selector)
+      @imap (el) -> closestParent(el, selector)
     find: (selector) ->
-      @map (el) -> find(el, selector)
+      @imap (el) -> find(el, selector)
     found: ->
       @els.length > 0
   }
