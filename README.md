@@ -136,7 +136,7 @@ Sets element's innerHTML string to `content`.
 A Dom instance.
 
 ##### Arguments
-* `content`: Either (1) an HTML string or (2) a DOM element
+* `content`: Either (1) an HTML string, (2) a DOM element or (3) a Dom instance
 
 Appends the given HTML string or DOM element to the end of the element.
 
@@ -144,6 +144,7 @@ Appends the given HTML string or DOM element to the end of the element.
 ```coffee
 foo = Dom('.foo').append('<p>Hi.</p>')
 Dom('.bar').append(document.createElement('p'))
+Dom('.bar').append(Dom('.baz'))
 ```
 
 #### `.appendTo(parent)`

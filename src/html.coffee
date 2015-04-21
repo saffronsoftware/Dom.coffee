@@ -9,8 +9,11 @@ do ->
       el.innerHTML += content
     else if Dom.isElement(content)
       el.appendChild(content)
+    else if content instanceof Dom
+      content.map (appendee) ->
+        el.appendChild(appendee)
     else
-      throw new Error('Dom.coffee: Invalid argument to .append(), must be either string or DOM element')
+      throw new Error('Dom.coffee: Invalid argument to .append(), must be either string, DOM element or Dom instance')
 
   appendTo = (el, parent) ->
     parent.appendChild(el)

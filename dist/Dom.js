@@ -134,8 +134,12 @@ Dom.extend({
       return el.innerHTML += content;
     } else if (Dom.isElement(content)) {
       return el.appendChild(content);
+    } else if (content instanceof Dom) {
+      return content.map(function(appendee) {
+        return el.appendChild(appendee);
+      });
     } else {
-      throw new Error('Dom.coffee: Invalid argument to .append(), must be either string or DOM element');
+      throw new Error('Dom.coffee: Invalid argument to .append(), must be either string, DOM element or Dom instance');
     }
   };
   appendTo = function(el, parent) {
