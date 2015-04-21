@@ -160,7 +160,21 @@ Dom.extend({
     return el.value = value;
   };
   getValue = function(el) {
-    return el.value;
+    if (el.tagName.toLowerCase() === 'input') {
+      if (el.type.toLowerCase() === 'text' || el.type.toLowerCase() === 'password') {
+        return el.value;
+      }
+      if (el.type.toLowerCase() === 'checkbox') {
+        return el.checked;
+      }
+    }
+    if (el.tagName.toLowerCase() === 'textarea') {
+      return el.value;
+    }
+    if (el.tagName.toLowerCase() === 'select') {
+      return el.options[el.selectedIndex].value;
+    }
+    return void 0;
   };
   return Dom.prototype.extend({
     empty: function() {
@@ -524,6 +538,9 @@ Dom.extend({
       return this.map(function(el) {
         return find(el, selector);
       });
+    },
+    found: function() {
+      return this.els.length > 0;
     }
   });
 })();

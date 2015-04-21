@@ -72,4 +72,6 @@ do ->
       @map (el) -> closestParent(el, selector)
     find: (selector) ->
       @map (el) -> find(el, selector)
+    found: ->
+      @els.length > 0
   }
