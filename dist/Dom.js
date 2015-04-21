@@ -51,8 +51,11 @@ Dom.prototype.init.prototype = Dom.prototype;
 
 Dom.prototype.extend({
   map: function(fn) {
+    return this.els.map(fn);
+  },
+  imap: function(fn) {
     var results;
-    results = this.els.map(fn);
+    results = this.map(fn);
     if (results.length === 1) {
       return results[0];
     }
@@ -178,65 +181,65 @@ Dom.extend({
   };
   return Dom.prototype.extend({
     empty: function() {
-      this.map(empty);
+      this.imap(empty);
       return this;
     },
     html: function(content) {
-      this.map(function(el) {
+      this.imap(function(el) {
         return html(el, content);
       });
       return this;
     },
     append: function(content) {
-      this.map(function(el) {
+      this.imap(function(el) {
         return append(el, content);
       });
       return this;
     },
     appendTo: function(parent) {
-      this.map(function(el) {
+      this.imap(function(el) {
         return appendTo(el, parent);
       });
       return this;
     },
     attr: function(name, value) {
       if (value != null) {
-        this.map(function(el) {
+        this.imap(function(el) {
           return setAttribute(el, name, value);
         });
         return this;
       } else {
-        return this.map(function(el) {
+        return this.imap(function(el) {
           return getAttribute(el, name);
         });
       }
     },
     removeAttr: function(name) {
-      this.map(function(el) {
+      this.imap(function(el) {
         return removeAttribute(el, name);
       });
       return this;
     },
     disable: function() {
-      this.map(disable);
+      this.imap(disable);
       return this;
     },
     enable: function() {
-      this.map(enable);
+      this.imap(enable);
       return this;
     },
     remove: function() {
-      this.map(remove);
+      this.imap(remove);
       return this;
     },
     value: function(value) {
       if (value != null) {
-        this.map(function(el) {
+        this.imap(function(el) {
           return setValue(el, value);
         });
         return this;
       } else {
-        return this.map(function(el) {
+        return this.imap(function(el) {
           return getValue(el);
         });
       }
@@ -357,51 +360,51 @@ Dom.extend({
   return Dom.prototype.extend({
     style: function(name, value) {
       if (value != null) {
-        this.map(function(el) {
+        this.imap(function(el) {
           return setStyle(el, name, value);
         });
         return this;
       } else {
-        return this.map(function(el) {
+        return this.imap(function(el) {
           return getStyle(el, name);
         });
       }
     },
     show: function() {
-      this.map(show);
+      this.imap(show);
       return this;
     },
     hide: function() {
-      this.map(hide);
+      this.imap(hide);
       return this;
     },
     isVisible: function() {
-      return this.map(isVisible);
+      return this.imap(isVisible);
     },
     toggle: function() {
-      this.map(toggle);
+      this.imap(toggle);
       return this;
     },
     addClass: function(cls) {
-      this.map(function(el) {
+      this.imap(function(el) {
         return addClass(el, cls);
       });
       return this;
     },
     removeClass: function(cls) {
-      this.map(function(el) {
+      this.imap(function(el) {
         return removeClass(el, cls);
       });
       return this;
     },
     toggleClass: function(cls) {
-      this.map(function(el) {
+      this.imap(function(el) {
         return toggleClass(el, cls);
       });
       return this;
     },
     hasClass: function(cls) {
-      return this.map(function(el) {
+      return this.imap(function(el) {
         return hasClass(el, cls);
       });
     }
@@ -421,7 +424,7 @@ Dom.extend({
   };
   Dom.prototype.extend({
     bind: function(type, handler) {
-      this.map(function(el) {
+      this.imap(function(el) {
         return bind(el, type, handler);
       });
       return this;
@@ -522,20 +525,20 @@ Dom.extend({
   };
   return Dom.prototype.extend({
     matches: function(selector) {
-      return this.map(function(el) {
+      return this.imap(function(el) {
         return matches(el, selector);
       });
     },
     parent: function() {
-      return this.map(parent);
+      return this.imap(parent);
     },
     closestParent: function(selector) {
-      return this.map(function(el) {
+      return this.imap(function(el) {
         return closestParent(el, selector);
       });
     },
     find: function(selector) {
-      return this.map(function(el) {
+      return this.imap(function(el) {
         return find(el, selector);
       });
     },
