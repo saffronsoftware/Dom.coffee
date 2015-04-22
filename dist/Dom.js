@@ -168,12 +168,10 @@ Dom.extend({
   };
   getValue = function(el) {
     if (el.tagName.toLowerCase() === 'input') {
-      if (el.type.toLowerCase() === 'text' || el.type.toLowerCase() === 'password') {
-        return el.value;
-      }
       if (el.type.toLowerCase() === 'checkbox') {
         return el.checked;
       }
+      return el.value;
     }
     if (el.tagName.toLowerCase() === 'textarea') {
       return el.value;
@@ -181,7 +179,7 @@ Dom.extend({
     if (el.tagName.toLowerCase() === 'select') {
       return el.options[el.selectedIndex].value;
     }
-    return void 0;
+    return el.value;
   };
   return Dom.prototype.extend({
     empty: function() {

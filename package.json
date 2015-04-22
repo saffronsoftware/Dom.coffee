@@ -1,6 +1,6 @@
 {
   "name": "Dom.coffee",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "private": true,
   "devDependencies": {
     "async": "^0.9.0",
