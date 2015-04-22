@@ -34,15 +34,15 @@ do ->
 
   getValue = (el) ->
     if el.tagName.toLowerCase() == 'input'
-      if el.type.toLowerCase() == 'text' || el.type.toLowerCase() == 'password'
-        return el.value
       if el.type.toLowerCase() == 'checkbox'
         return el.checked
+      return el.value
     if el.tagName.toLowerCase() == 'textarea'
       return el.value
     if el.tagName.toLowerCase() == 'select'
       return el.options[el.selectedIndex].value
-    return undefined
+    # Whatever, let's try anyway
+    return el.value
 
   Dom.prototype.extend {
     empty: ->
