@@ -72,7 +72,6 @@ do ->
     find: (selector) ->
       elGroups = @map (el) -> find(el, selector)
       els = elGroups.reduce(((acc, group) -> acc.concat(group)), [])
-      console.log els
       return Dom(els)
     found: ->
       @els.length > 0
