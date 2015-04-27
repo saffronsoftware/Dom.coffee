@@ -172,9 +172,19 @@ Dom('.bar').append(Dom('.baz'))
 A Dom instance.
 
 ##### Arguments
-* `parent`: A DOM element (not a Dom.coffee instance)
+* `parent`: Either (1) a DOM element or (2) a Dom instance
 
 Appends the element to the given `parent`.
+
+#### `.clone(deep)`
+##### Returns
+A Dom instance.
+
+##### Arguments
+* `deep`: `true` if the children of the node should also be cloned, or `false`
+          to clone only the specified node
+
+Clones a node, just like [Javascript's .cloneNode()](https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode).
 
 #### `.attr(name[, value])`
 ##### Arguments

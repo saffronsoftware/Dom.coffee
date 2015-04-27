@@ -121,7 +121,7 @@ Dom.extend({
 })();
 
 (function() {
-  var append, appendTo, disable, empty, enable, getAttribute, getValue, html, remove, removeAttribute, setAttribute, setValue;
+  var append, appendTo, clone, disable, empty, enable, getAttribute, getValue, html, remove, removeAttribute, setAttribute, setValue;
   empty = function(el) {
     return el.innerHTML = '';
   };
@@ -143,7 +143,18 @@ Dom.extend({
     }
   };
   appendTo = function(el, parent) {
-    return parent.appendChild(el);
+    if (Dom.isElement(parent)) {
+      return parent.appendChild(el);
+    } else if (parent instanceof Dom) {
+      return parent.map(function(appender) {
+        return appender.appendChild(el);
+      });
+    } else {
+      throw new Error('Dom.coffee: Invalid argument to .appendTo(), must be either DOM element or Dom instance');
+    }
+  };
+  clone = function(el, deep) {
+    return el.cloneNode(deep);
   };
   getAttribute = function(el, name) {
     return el.getAttribute(name);
@@ -201,6 +212,12 @@ Dom.extend({
     appendTo: function(parent) {
       this.imap(function(el) {
         return appendTo(el, parent);
+      });
+      return this;
+    },
+    clone: function(deep) {
+      this.imap(function(el) {
+        return clone(el, deep);
       });
       return this;
     },

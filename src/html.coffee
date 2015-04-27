@@ -16,7 +16,16 @@ do ->
       throw new Error('Dom.coffee: Invalid argument to .append(), must be either string, DOM element or Dom instance')
 
   appendTo = (el, parent) ->
-    parent.appendChild(el)
+    if Dom.isElement(parent)
+      parent.appendChild(el)
+    else if parent instanceof Dom
+      parent.map (appender) ->
+        appender.appendChild(el)
+    else
+      throw new Error('Dom.coffee: Invalid argument to .appendTo(), must be either DOM element or Dom instance')
+
+  clone = (el, deep) ->
+    el.cloneNode(deep)
 
   getAttribute = (el, name) -> el.getAttribute(name)
 
@@ -56,6 +65,9 @@ do ->
       return this
     appendTo: (parent) ->
       @imap (el) -> appendTo(el, parent)
+      return this
+    clone: (deep) ->
+      @imap (el) -> clone(el, deep)
       return this
     attr: (name, value) ->
       if value?
