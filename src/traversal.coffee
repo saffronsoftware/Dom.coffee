@@ -70,8 +70,9 @@ do ->
     closestParent: (selector) ->
       @imap (el) -> closestParent(el, selector)
     find: (selector) ->
-      elGroups = @imap (el) -> find(el, selector)
-      els = elGroups.reduce((acc, group) -> acc.concat(group))
+      elGroups = @map (el) -> find(el, selector)
+      els = elGroups.reduce(((acc, group) -> acc.concat(group)), [])
+      console.log els
       return Dom(els)
     found: ->
       @els.length > 0

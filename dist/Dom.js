@@ -557,12 +557,13 @@ Dom.extend({
     },
     find: function(selector) {
       var elGroups, els;
-      elGroups = this.imap(function(el) {
+      elGroups = this.map(function(el) {
         return find(el, selector);
       });
-      els = elGroups.reduce(function(acc, group) {
+      els = elGroups.reduce((function(acc, group) {
         return acc.concat(group);
-      });
+      }), []);
+      console.log(els);
       return Dom(els);
     },
     found: function() {
