@@ -2,12 +2,32 @@
 
 A lightweight DOM manipulation library written in Coffeescript.
 
-## To-do
-* Add chaining
-* Make more methods (e.g. `.parent()`) return Dom.coffee elements as opposed to
-regular DOM elements.
+*n.b.:* `Dom` in sentence case refers to this library, while `DOM` refers to
+the browser's DOM.
 
 ## API
+
+### Creating a Dom instance
+
+The Dom constructor takes one of:
+
+* a DOM element
+* an array of DOM elements
+* a NodeList
+* a selector
+* `document`
+* `window`
+
+##### Example
+```coffee
+Dom(document.getElementById('header'))
+Dom(document.createElement('div'))
+Dom(document.querySelector('.duck'))
+Dom('#homer-simpson')
+Dom('.hat .cat')
+Dom(document)
+Dom(window)
+```
 
 ### CSS
 
@@ -229,6 +249,9 @@ Binds event `type` on the element to function `handler`.
 ```coffee
 Dom('.btn').bind 'click', ->
   console.log('Hi!')
+
+Dom(window).bind 'resize', ->
+  console.log('Woo!')
 ```
 #### `Dom.loaded(done)`
 ##### Arguments

@@ -33,7 +33,7 @@ Dom.prototype.init = function(element) {
   @els is the list of elements for this instance.
   @elemData stores various data stored for elements (e.g. old display value).
    */
-  if (Dom.isElement(element)) {
+  if (Dom.isElement(element) || element === window || element === document) {
     this.els = [element];
   } else if (element.constructor === Array && element.every(Dom.isElement)) {
     this.els = element;
@@ -42,7 +42,7 @@ Dom.prototype.init = function(element) {
   } else if (Dom.isSelector(element)) {
     this.els = [].slice.apply(document.querySelectorAll(element));
   } else {
-    throw new Error('Dom.coffee: Invalid argument to .init(), must be a DOM element or an array of DOM elements or a NodeList or a selector.');
+    throw new Error('Dom.coffee: Invalid argument to .init(), must be one of: a DOM element, an array of DOM elements, a NodeList, a selector, `document` or `window`.');
   }
   return this;
 };

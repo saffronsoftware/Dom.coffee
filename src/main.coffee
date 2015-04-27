@@ -24,7 +24,7 @@ Dom.prototype.init = (element) ->
   @els is the list of elements for this instance.
   @elemData stores various data stored for elements (e.g. old display value).
   ###
-  if Dom.isElement(element)
+  if Dom.isElement(element) || element == window || element == document
     @els = [element]
   else if element.constructor == Array && element.every(Dom.isElement)
     @els = element
@@ -33,7 +33,9 @@ Dom.prototype.init = (element) ->
   else if Dom.isSelector(element)
     @els = [].slice.apply(document.querySelectorAll(element))
   else
-    throw new Error('Dom.coffee: Invalid argument to .init(), must be a DOM element or an array of DOM elements or a NodeList or a selector.')
+    throw new Error('Dom.coffee: Invalid argument to .init(), must be one of:
+                     a DOM element, an array of DOM elements, a NodeList, a
+                     selector, `document` or `window`.')
   return this
 
 # This is for instantiation
