@@ -522,8 +522,7 @@ Dom.extend({
     return null;
   };
   find = function(el, selector) {
-    matches = el.querySelectorAll(selector);
-    return Dom(matches);
+    return [].slice.call(el.querySelectorAll(selector));
   };
   return Dom.prototype.extend({
     matches: function(selector) {
@@ -540,9 +539,14 @@ Dom.extend({
       });
     },
     find: function(selector) {
-      return this.imap(function(el) {
+      var elGroups, els;
+      elGroups = this.imap(function(el) {
         return find(el, selector);
       });
+      els = elGroups.reduce(function(acc, group) {
+        return acc.concat(group);
+      });
+      return Dom(els);
     },
     found: function() {
       return this.els.length > 0;

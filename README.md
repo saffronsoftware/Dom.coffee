@@ -262,7 +262,9 @@ or null if none is found.
 * `selector`: A selector string
 
 ##### Returns
-A new Dom instance with the element's children that match `selector`.
+A new Dom instance with the element's children that match `selector`. If the
+current instance has more than one element, this function will return
+a flat array with the found children for all elements.
 
 ### Checks
 

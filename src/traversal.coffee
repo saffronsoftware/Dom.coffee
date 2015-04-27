@@ -61,8 +61,7 @@ do ->
     return null
 
   find = (el, selector) ->
-    matches = el.querySelectorAll(selector)
-    return Dom(matches)
+    [].slice.call(el.querySelectorAll(selector))
 
   Dom.prototype.extend {
     matches: (selector) ->
@@ -71,7 +70,9 @@ do ->
     closestParent: (selector) ->
       @imap (el) -> closestParent(el, selector)
     find: (selector) ->
-      @imap (el) -> find(el, selector)
+      elGroups = @imap (el) -> find(el, selector)
+      els = elGroups.reduce((acc, group) -> acc.concat(group))
+      return Dom(els)
     found: ->
       @els.length > 0
   }
