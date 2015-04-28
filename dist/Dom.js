@@ -267,7 +267,7 @@ Dom.extend({
 })();
 
 (function() {
-  var addClass, containsClass, getStyle, hasClass, hide, isVisible, reNotWhitespace, removeClass, setStyle, show, spaceClass, toggle, toggleClass, trimClass;
+  var addClass, containsClass, getStyle, hasClass, hide, isVisible, offset, reNotWhitespace, removeClass, setStyle, show, spaceClass, toggle, toggleClass, trimClass;
   reNotWhitespace = /\S+/g;
   getStyle = function(el, name) {
 
@@ -376,6 +376,14 @@ Dom.extend({
       }
     });
   };
+  offset = function(el) {
+    var box;
+    box = el.getBoundingClientRect();
+    return {
+      top: box.top + window.pageYOffset - document.documentElement.clientTop,
+      left: box.left + window.pageXOffset - document.documentElement.clientLeft
+    };
+  };
   return Dom.prototype.extend({
     style: function(name, value) {
       if (value != null) {
@@ -426,6 +434,9 @@ Dom.extend({
       return this.imap(function(el) {
         return hasClass(el, cls);
       });
+    },
+    offset: function() {
+      return this.imap(offset);
     }
   });
 })();

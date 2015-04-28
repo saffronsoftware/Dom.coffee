@@ -78,6 +78,13 @@ do ->
       else
         addClass(el, cls)
 
+  offset = (el) ->
+    box = el.getBoundingClientRect()
+    {
+      top: box.top + window.pageYOffset - document.documentElement.clientTop
+      left: box.left + window.pageXOffset - document.documentElement.clientLeft
+    }
+
   Dom.prototype.extend {
     style: (name, value) ->
       if value?
@@ -107,4 +114,6 @@ do ->
       return this
     hasClass: (cls) ->
       @imap (el) -> hasClass(el, cls)
+    offset: ->
+      @imap(offset)
   }
