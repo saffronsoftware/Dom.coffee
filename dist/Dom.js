@@ -545,7 +545,7 @@ Dom.extend({
       if (el.nodeType === 1 && matches(el, selector)) {
         return Dom(el);
       }
-      el = parent(el);
+      el = el.parentNode;
     }
     return null;
   };

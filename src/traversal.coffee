@@ -57,7 +57,7 @@ do ->
     el = el.parentNode
     while el && el.nodeType != 9
       return Dom(el) if el.nodeType == 1 && matches(el, selector)
-      el = parent(el)
+      el = el.parentNode
     return null
 
   find = (el, selector) ->
