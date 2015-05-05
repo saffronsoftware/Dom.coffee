@@ -290,6 +290,14 @@ A Dom instance with the element's parent.
 A Dom instance with the closest parent of this element that matches `selector`,
 or null if none is found.
 
+#### `.thisOrClosestParent(selector)`
+##### Arguments
+* `selector`: A selector string
+
+##### Returns
+Like `.closestParent()`, but first checks if the current element matches, and
+returns it if it does.
+
 #### `.find(selector)`
 ##### Arguments
 * `selector`: A selector string

@@ -33,6 +33,14 @@ Dom.prototype.init = function(element) {
   @els is the list of elements for this instance.
   @elemData stores various data stored for elements (e.g. old display value).
    */
+  var invalidArgumentMessage;
+  invalidArgumentMessage = 'Dom.coffee: Invalid argument to .init(), must be one of: a DOM element, an array of DOM elements, a NodeList, a selector, `document` or `window`.';
+  if (element == null) {
+    throw new Error(invalidArgumentMessage);
+  }
+  if ((element.constructor != null) && element.constructor === Dom) {
+    return element;
+  }
   if (Dom.isElement(element) || element === window || element === document) {
     this.els = [element];
   } else if (element.constructor === Array && element.every(Dom.isElement)) {
@@ -42,7 +50,7 @@ Dom.prototype.init = function(element) {
   } else if (Dom.isSelector(element)) {
     this.els = [].slice.apply(document.querySelectorAll(element));
   } else {
-    throw new Error('Dom.coffee: Invalid argument to .init(), must be one of: a DOM element, an array of DOM elements, a NodeList, a selector, `document` or `window`.');
+    throw new Error(invalidArgumentMessage);
   }
   return this;
 };
@@ -469,7 +477,7 @@ Dom.extend({
 })();
 
 (function() {
-  var closestParent, find, matches, parent;
+  var closestParent, find, matches, parent, thisOrClosestParent;
   matches = (function() {
 
     /*
@@ -536,6 +544,12 @@ Dom.extend({
   parent = function(el) {
     return Dom(el.parentNode);
   };
+  thisOrClosestParent = function(el, selector) {
+    if (el.nodeType === 1 && matches(el, selector)) {
+      return Dom(el);
+    }
+    return closestParent(el, selector);
+  };
   closestParent = function(el, selector) {
     if (el.nodeType === 9) {
       return;
@@ -560,6 +574,11 @@ Dom.extend({
     },
     parent: function() {
       return this.imap(parent);
+    },
+    thisOrClosestParent: function(selector) {
+      return this.imap(function(el) {
+        return thisOrClosestParent(el, selector);
+      });
     },
     closestParent: function(selector) {
       return this.imap(function(el) {

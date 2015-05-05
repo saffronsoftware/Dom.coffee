@@ -52,6 +52,10 @@ do ->
 
   parent = (el) -> Dom(el.parentNode)
 
+  thisOrClosestParent = (el, selector) ->
+    return Dom(el) if el.nodeType == 1 && matches(el, selector)
+    return closestParent(el, selector)
+
   closestParent = (el, selector) ->
     return if el.nodeType == 9
     el = el.parentNode
@@ -67,6 +71,8 @@ do ->
     matches: (selector) ->
       @imap (el) -> matches(el, selector)
     parent: -> @imap(parent)
+    thisOrClosestParent: (selector) ->
+      @imap (el) -> thisOrClosestParent(el, selector)
     closestParent: (selector) ->
       @imap (el) -> closestParent(el, selector)
     find: (selector) ->
