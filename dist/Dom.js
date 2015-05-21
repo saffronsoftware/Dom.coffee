@@ -129,12 +129,15 @@ Dom.extend({
 })();
 
 (function() {
-  var append, appendTo, clone, disable, empty, enable, getAttribute, getValue, html, remove, removeAttribute, setAttribute, setValue;
+  var append, appendTo, clone, disable, empty, enable, getAttribute, getHTML, getValue, remove, removeAttribute, setAttribute, setHTML, setValue;
   empty = function(el) {
     return el.innerHTML = '';
   };
-  html = function(el, content) {
+  setHTML = function(el, content) {
     return el.innerHTML = content;
+  };
+  getHTML = function(el, content) {
+    return el.innerHTML;
   };
   append = function(el, content) {
     if (typeof content === 'string') {
@@ -206,10 +209,16 @@ Dom.extend({
       return this;
     },
     html: function(content) {
-      this.imap(function(el) {
-        return html(el, content);
-      });
-      return this;
+      if (content != null) {
+        this.imap(function(el) {
+          return setHTML(el, content);
+        });
+        return this;
+      } else {
+        return this.imap(function(el) {
+          return getHTML(el);
+        });
+      }
     },
     append: function(content) {
       this.imap(function(el) {

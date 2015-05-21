@@ -1,7 +1,11 @@
 do ->
   empty = (el) -> el.innerHTML = ''
 
-  html = (el, content) -> el.innerHTML = content
+  setHTML = (el, content) ->
+    el.innerHTML = content
+
+  getHTML = (el, content) ->
+    return el.innerHTML
 
   append = (el, content) ->
     if typeof content == 'string'
@@ -58,8 +62,11 @@ do ->
       @imap(empty)
       return this
     html: (content) ->
-      @imap (el) -> html(el, content)
-      return this
+      if content?
+        @imap (el) -> setHTML(el, content)
+        return this
+      else
+        return @imap (el) -> getHTML(el)
     append: (content) ->
       @imap (el) -> append(el, content)
       return this
@@ -74,7 +81,7 @@ do ->
         @imap (el) -> setAttribute(el, name, value)
         return this
       else
-        @imap (el) -> getAttribute(el, name)
+        return @imap (el) -> getAttribute(el, name)
     removeAttr: (name) ->
       @imap (el) -> removeAttribute(el, name)
       return this
@@ -92,5 +99,5 @@ do ->
         @imap (el) -> setValue(el, value)
         return this
       else
-        @imap (el) -> getValue(el)
+        return @imap (el) -> getValue(el)
   }
