@@ -43,6 +43,8 @@ do ->
 
   remove = (el) -> el.parentNode.removeChild(el)
 
+  checked = (el) -> el.checked
+
   setValue = (el, value) -> el.value = value
 
   getValue = (el) ->
@@ -94,6 +96,8 @@ do ->
     remove: ->
       @imap(remove)
       return this
+    checked: ->
+      return @imap(checked)
     value: (value) ->
       if value?
         @imap (el) -> setValue(el, value)

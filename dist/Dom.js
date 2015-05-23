@@ -129,7 +129,7 @@ Dom.extend({
 })();
 
 (function() {
-  var append, appendTo, clone, disable, empty, enable, getAttribute, getHTML, getValue, remove, removeAttribute, setAttribute, setHTML, setValue;
+  var append, appendTo, checked, clone, disable, empty, enable, getAttribute, getHTML, getValue, remove, removeAttribute, setAttribute, setHTML, setValue;
   empty = function(el) {
     return el.innerHTML = '';
   };
@@ -184,6 +184,9 @@ Dom.extend({
   };
   remove = function(el) {
     return el.parentNode.removeChild(el);
+  };
+  checked = function(el) {
+    return el.checked;
   };
   setValue = function(el, value) {
     return el.value = value;
@@ -267,6 +270,9 @@ Dom.extend({
     remove: function() {
       this.imap(remove);
       return this;
+    },
+    checked: function() {
+      return this.imap(checked);
     },
     value: function(value) {
       if (value != null) {

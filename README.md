@@ -233,6 +233,12 @@ A Dom instance.
 
 Removes the element.
 
+#### `.checked()`
+##### Returns
+`true` or `false`.
+
+Returns whether or not an input is checked.
+
 #### `.value([value])`
 ##### Arguments
 * `value`: The optional value to set the value to
