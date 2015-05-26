@@ -18,6 +18,7 @@ gulp.task 'coffee', ->
           .on('end', done)
     (done) ->
       gulp.src([
+        './bower_components/httprequest/HTTPRequest.js'
         './compiled/main.js'
         './compiled/matches.js'
         './compiled/checks.js'
@@ -26,6 +27,7 @@ gulp.task 'coffee', ->
         './compiled/events.js'
         './compiled/traversal.js'
         './compiled/defaultDisplay.js'
+        './compiled/http.js'
       ]).pipe(concat('Dom.js'))
         .pipe(gulp.dest('./dist'))
         .on('end', done)

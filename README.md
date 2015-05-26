@@ -313,6 +313,58 @@ A new Dom instance with the element's children that match `selector`. If the
 current instance has more than one element, this function will return
 a flat array with the found children for all elements.
 
+### HTTP
+
+#### `Dom.post(url, data, done, options)`
+##### Arguments
+* `url` [String]
+* `data` [Object]
+* `done` [Function] (status [Number], content [Object], headers [Object])
+* `options` [Object]
+  * `json` [Boolean]: Whether or not to parse the response as JSON
+
+Makes a POST request.
+
+#### `Dom.postJSON(url, data, done, options)`
+Same as `.post()`, but adds `{json: true}` to `options`.
+
+#### `Dom.put(url, data, done, options)`
+##### Arguments
+* `url` [String]
+* `data` [Object]
+* `done` [Function] (status [Number], content [Object], headers [Object])
+* `options` [Object]
+  * `json` [Boolean]: Whether or not to parse the response as JSON
+
+Makes a PUT request.
+
+#### `Dom.putJSON(url, data, done, options)`
+Same as `.put()`, but adds `{json: true}` to `options`.
+
+#### `Dom.get(url, done, options)`
+##### Arguments
+* `url` [String]
+* `done` [Function] (status [Number], content [Object], headers [Object])
+* `options` [Object]
+  * `json` [Boolean]: Whether or not to parse the response as JSON
+
+Makes a GET request.
+
+#### `Dom.getJSON(url, data, done, options)`
+Same as `.get()`, but adds `{json: true}` to `options`.
+
+#### `Dom.del(url, done, options)`
+##### Arguments
+* `url` [String]
+* `done` [Function] (status [Number], content [Object], headers [Object])
+* `options` [Object]
+  * `json` [Boolean]: Whether or not to parse the response as JSON
+
+Makes a DELETE request.
+
+#### `Dom.delJSON(url, done, options)`
+Same as `.del()`, but adds `{json: true}` to `options`.
+
 ### Checks
 
 #### `Dom.isNode(el)`
@@ -331,7 +383,9 @@ Whether or not `el` is a DOM element.
 
 ## Credits
 
-Build at [Phyramid](http://www.phyramid.com) for internal use.
+Built at [Phyramid](http://www.phyramid.com) for internal use.
+
+[HTTPRequest](https://www.npmjs.com/package/HTTPRequest) used for HTTP requests.
 
 Structure inspired by jQuery.
 
