@@ -85,6 +85,9 @@ do ->
       left: box.left + window.pageXOffset - document.documentElement.clientLeft
     }
 
+  pxToNumber = (px) ->
+    +(px.replace('px', ''))
+
   Dom.prototype.extend {
     style: (name, value) ->
       if value?
@@ -92,6 +95,10 @@ do ->
         return this
       else
         @imap (el) -> getStyle(el, name)
+    height: ->
+       @imap (el) -> pxToNumber(getStyle(el, 'height'))
+    width: ->
+       @imap (el) -> pxToNumber(getStyle(el, 'width'))
     show: ->
       @imap(show)
       return this

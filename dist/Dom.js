@@ -1111,7 +1111,7 @@ Dom.extend({
 })();
 
 (function() {
-  var addClass, containsClass, getStyle, hasClass, hide, isVisible, offset, reNotWhitespace, removeClass, setStyle, show, spaceClass, toggle, toggleClass, trimClass;
+  var addClass, containsClass, getStyle, hasClass, hide, isVisible, offset, pxToNumber, reNotWhitespace, removeClass, setStyle, show, spaceClass, toggle, toggleClass, trimClass;
   reNotWhitespace = /\S+/g;
   getStyle = function(el, name) {
 
@@ -1228,6 +1228,9 @@ Dom.extend({
       left: box.left + window.pageXOffset - document.documentElement.clientLeft
     };
   };
+  pxToNumber = function(px) {
+    return +(px.replace('px', ''));
+  };
   return Dom.prototype.extend({
     style: function(name, value) {
       if (value != null) {
@@ -1240,6 +1243,16 @@ Dom.extend({
           return getStyle(el, name);
         });
       }
+    },
+    height: function() {
+      return this.imap(function(el) {
+        return pxToNumber(getStyle(el, 'height'));
+      });
+    },
+    width: function() {
+      return this.imap(function(el) {
+        return pxToNumber(getStyle(el, 'width'));
+      });
     },
     show: function() {
       this.imap(show);

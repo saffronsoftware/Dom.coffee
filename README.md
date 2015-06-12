@@ -51,6 +51,18 @@ Dom('.thing').style('display', 'block')
 >> block
 ```
 
+#### `.width()`
+##### Returns
+The width of the given element. Similar to `.style('width')`, but returns
+a number instead of a pixel string. May return NaN for values such as
+`auto`.
+
+#### `.height()`
+##### Returns
+The height of the given element. Similar to `.style('height)`, but returns
+a number instead of a pixel string. May return NaN for values such as
+`auto`.
+
 #### `.show()`
 ##### Returns
 A Dom instance.
