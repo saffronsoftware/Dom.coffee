@@ -49,10 +49,14 @@ Dom.prototype.init = (element) ->
 Dom.prototype.init.prototype = Dom.prototype
 
 Dom.prototype.extend {
-  map: (fn) ->
-    @els.map(fn)
-  imap: (fn) ->
-    results = @map(fn)
+  map: ->
+    @els.map.apply(@els, arguments)
+  reduce: ->
+    @els.reduce.apply(@els, arguments)
+  filter: ->
+    @els.filter.apply(@els, arguments)
+  imap: ->
+    results = @map.apply(this, arguments)
     return results[0] if results.length == 1
     return results
 }

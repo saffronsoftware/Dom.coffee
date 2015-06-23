@@ -879,12 +879,18 @@ Dom.prototype.init = function(element) {
 Dom.prototype.init.prototype = Dom.prototype;
 
 Dom.prototype.extend({
-  map: function(fn) {
-    return this.els.map(fn);
+  map: function() {
+    return this.els.map.apply(this.els, arguments);
   },
-  imap: function(fn) {
+  reduce: function() {
+    return this.els.reduce.apply(this.els, arguments);
+  },
+  filter: function() {
+    return this.els.filter.apply(this.els, arguments);
+  },
+  imap: function() {
     var results;
-    results = this.map(fn);
+    results = this.map.apply(this, arguments);
     if (results.length === 1) {
       return results[0];
     }
