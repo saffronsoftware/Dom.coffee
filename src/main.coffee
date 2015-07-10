@@ -32,9 +32,9 @@ Dom.prototype.init = (element) ->
 
   return element if element.constructor? && element.constructor == Dom
 
-  if Dom.isElement(element) || element == window || element == document
+  if Dom.isNode(element) || element == window || element == document
     @els = [element]
-  else if element.constructor == Array && element.every(Dom.isElement)
+  else if element.constructor == Array && element.every(Dom.isNode)
     @els = element
   else if Dom.isNodeList(element)
     @els = [].slice.call(element)

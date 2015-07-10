@@ -862,9 +862,9 @@ Dom.prototype.init = function(element) {
   if ((element.constructor != null) && element.constructor === Dom) {
     return element;
   }
-  if (Dom.isElement(element) || element === window || element === document) {
+  if (Dom.isNode(element) || element === window || element === document) {
     this.els = [element];
-  } else if (element.constructor === Array && element.every(Dom.isElement)) {
+  } else if (element.constructor === Array && element.every(Dom.isNode)) {
     this.els = element;
   } else if (Dom.isNodeList(element)) {
     this.els = [].slice.call(element);
@@ -970,7 +970,7 @@ Dom.extend({
     if (typeof content === 'string') {
       el.innerHTML || (el.innerHTML = '');
       return el.innerHTML += content;
-    } else if (Dom.isElement(content)) {
+    } else if (Dom.isNode(content)) {
       return el.appendChild(content);
     } else if (content instanceof Dom) {
       return content.map(function(appendee) {
@@ -981,7 +981,7 @@ Dom.extend({
     }
   };
   appendTo = function(el, parent) {
-    if (Dom.isElement(parent)) {
+    if (Dom.isNode(parent)) {
       return parent.appendChild(el);
     } else if (parent instanceof Dom) {
       return parent.map(function(appender) {

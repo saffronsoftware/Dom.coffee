@@ -11,7 +11,7 @@ do ->
     if typeof content == 'string'
       el.innerHTML ||= ''
       el.innerHTML += content
-    else if Dom.isElement(content)
+    else if Dom.isNode(content)
       el.appendChild(content)
     else if content instanceof Dom
       content.map (appendee) ->
@@ -20,7 +20,7 @@ do ->
       throw new Error('Dom.coffee: Invalid argument to .append(), must be either string, DOM element or Dom instance')
 
   appendTo = (el, parent) ->
-    if Dom.isElement(parent)
+    if Dom.isNode(parent)
       parent.appendChild(el)
     else if parent instanceof Dom
       parent.map (appender) ->
