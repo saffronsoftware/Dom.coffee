@@ -57,11 +57,15 @@ The width of the given element. Similar to `.style('width')`, but returns
 a number instead of a pixel string. May return NaN for values such as
 `auto`.
 
+Alternatively, this method may be used to find the size of the `window`.
+
 #### `.height()`
 ##### Returns
-The height of the given element. Similar to `.style('height)`, but returns
+The height of the given element. Similar to `.style('height')`, but returns
 a number instead of a pixel string. May return NaN for values such as
 `auto`.
+
+Alternatively, this method may be used to find the size of the `window`.
 
 #### `.show()`
 ##### Returns

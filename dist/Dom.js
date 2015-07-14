@@ -1117,7 +1117,7 @@ Dom.extend({
 })();
 
 (function() {
-  var addClass, containsClass, getStyle, hasClass, hide, isVisible, offset, pxToNumber, reNotWhitespace, removeClass, scrollTop, setStyle, show, spaceClass, toggle, toggleClass, trimClass;
+  var addClass, containsClass, getStyle, hasClass, height, hide, isVisible, offset, pxToNumber, reNotWhitespace, removeClass, scrollTop, setStyle, show, spaceClass, toggle, toggleClass, trimClass, width;
   reNotWhitespace = /\S+/g;
   getStyle = function(el, name) {
 
@@ -1237,6 +1237,20 @@ Dom.extend({
   pxToNumber = function(px) {
     return +(px.replace('px', ''));
   };
+  height = function(el) {
+    if (el === window) {
+      return window.innerHeight || (document.documentElement && document.documentElement.clientHeight) || document.body.clientHeight;
+    } else {
+      return pxToNumber(getStyle(el, 'height'));
+    }
+  };
+  width = function(el) {
+    if (el === window) {
+      return window.innerWidth || (document.documentElement && document.documentElement.clientWidth) || document.body.clientWidth;
+    } else {
+      return pxToNumber(getStyle(el, 'width'));
+    }
+  };
   Dom.prototype.extend({
     style: function(name, value) {
       if (value != null) {
@@ -1251,14 +1265,10 @@ Dom.extend({
       }
     },
     height: function() {
-      return this.imap(function(el) {
-        return pxToNumber(getStyle(el, 'height'));
-      });
+      return this.imap(height);
     },
     width: function() {
-      return this.imap(function(el) {
-        return pxToNumber(getStyle(el, 'width'));
-      });
+      return this.imap(width);
     },
     show: function() {
       this.imap(show);

@@ -88,6 +88,24 @@ do ->
   pxToNumber = (px) ->
     +(px.replace('px', ''))
 
+  height = (el) ->
+    if el == window
+      window.innerHeight ||
+      (document.documentElement &&
+       document.documentElement.clientHeight) ||
+      document.body.clientHeight
+    else
+      pxToNumber(getStyle(el, 'height'))
+
+  width = (el) ->
+    if el == window
+      window.innerWidth ||
+      (document.documentElement &&
+       document.documentElement.clientWidth) ||
+      document.body.clientWidth
+    else
+      pxToNumber(getStyle(el, 'width'))
+
   Dom.prototype.extend {
     style: (name, value) ->
       if value?
@@ -96,9 +114,9 @@ do ->
       else
         @imap (el) -> getStyle(el, name)
     height: ->
-       @imap (el) -> pxToNumber(getStyle(el, 'height'))
+       @imap(height)
     width: ->
-       @imap (el) -> pxToNumber(getStyle(el, 'width'))
+       @imap(width)
     show: ->
       @imap(show)
       return this
