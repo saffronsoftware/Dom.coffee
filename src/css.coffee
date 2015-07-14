@@ -2,12 +2,12 @@ do ->
   # Many things in here heavily inspired by jQuery.
   reNotWhitespace = /\S+/g
 
-  getStyle = (el, name) ->
+  getStyle = (el, name, forceGetComputed) ->
     ###
     Falls back to using getComputedStyle if `el.style` doesn't have what we
     need. Perhaps consider optimising this.
     ###
-    if el.style[name]? && el.style[name].length > 0
+    if !forceGetComputed && el.style[name]? && el.style[name].length > 0
       return el.style[name]
     else
       return getComputedStyle(el).getPropertyValue(name)
@@ -95,7 +95,12 @@ do ->
        document.documentElement.clientHeight) ||
       document.body.clientHeight
     else
-      pxToNumber(getStyle(el, 'height'))
+      styleHeight = pxToNumber(getStyle(el, 'height'))
+      if isNaN(styleHeight)
+        computedHeight = pxToNumber(getStyle(el, 'height', true))
+        return computedHeight
+      else
+        return styleHeight
 
   width = (el) ->
     if el == window
@@ -104,7 +109,12 @@ do ->
        document.documentElement.clientWidth) ||
       document.body.clientWidth
     else
-      pxToNumber(getStyle(el, 'width'))
+      styleWidth = pxToNumber(getStyle(el, 'width'))
+      if isNaN(styleWidth)
+        computedWidth = pxToNumber(getStyle(el, 'width', true))
+        return computedWidth
+      else
+        return styleWidth
 
   Dom.prototype.extend {
     style: (name, value) ->

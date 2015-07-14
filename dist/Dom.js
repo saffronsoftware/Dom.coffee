@@ -1119,13 +1119,13 @@ Dom.extend({
 (function() {
   var addClass, containsClass, getStyle, hasClass, height, hide, isVisible, offset, pxToNumber, reNotWhitespace, removeClass, scrollTop, setStyle, show, spaceClass, toggle, toggleClass, trimClass, width;
   reNotWhitespace = /\S+/g;
-  getStyle = function(el, name) {
+  getStyle = function(el, name, forceGetComputed) {
 
     /*
     Falls back to using getComputedStyle if `el.style` doesn't have what we
     need. Perhaps consider optimising this.
      */
-    if ((el.style[name] != null) && el.style[name].length > 0) {
+    if (!forceGetComputed && (el.style[name] != null) && el.style[name].length > 0) {
       return el.style[name];
     } else {
       return getComputedStyle(el).getPropertyValue(name);
@@ -1238,17 +1238,31 @@ Dom.extend({
     return +(px.replace('px', ''));
   };
   height = function(el) {
+    var computedHeight, styleHeight;
     if (el === window) {
       return window.innerHeight || (document.documentElement && document.documentElement.clientHeight) || document.body.clientHeight;
     } else {
-      return pxToNumber(getStyle(el, 'height'));
+      styleHeight = pxToNumber(getStyle(el, 'height'));
+      if (isNaN(styleHeight)) {
+        computedHeight = pxToNumber(getStyle(el, 'height', true));
+        return computedHeight;
+      } else {
+        return styleHeight;
+      }
     }
   };
   width = function(el) {
+    var computedWidth, styleWidth;
     if (el === window) {
       return window.innerWidth || (document.documentElement && document.documentElement.clientWidth) || document.body.clientWidth;
     } else {
-      return pxToNumber(getStyle(el, 'width'));
+      styleWidth = pxToNumber(getStyle(el, 'width'));
+      if (isNaN(styleWidth)) {
+        computedWidth = pxToNumber(getStyle(el, 'width', true));
+        return computedWidth;
+      } else {
+        return styleWidth;
+      }
     }
   };
   Dom.prototype.extend({
