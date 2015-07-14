@@ -1117,7 +1117,7 @@ Dom.extend({
 })();
 
 (function() {
-  var addClass, containsClass, getStyle, hasClass, hide, isVisible, offset, pxToNumber, reNotWhitespace, removeClass, setStyle, show, spaceClass, toggle, toggleClass, trimClass;
+  var addClass, containsClass, getStyle, hasClass, hide, isVisible, offset, pxToNumber, reNotWhitespace, removeClass, scrollTop, setStyle, show, spaceClass, toggle, toggleClass, trimClass;
   reNotWhitespace = /\S+/g;
   getStyle = function(el, name) {
 
@@ -1237,7 +1237,7 @@ Dom.extend({
   pxToNumber = function(px) {
     return +(px.replace('px', ''));
   };
-  return Dom.prototype.extend({
+  Dom.prototype.extend({
     style: function(name, value) {
       if (value != null) {
         this.imap(function(el) {
@@ -1301,6 +1301,12 @@ Dom.extend({
     offset: function() {
       return this.imap(offset);
     }
+  });
+  scrollTop = function() {
+    return (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+  };
+  return Dom.extend({
+    scrollTop: scrollTop
   });
 })();
 

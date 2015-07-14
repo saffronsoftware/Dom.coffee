@@ -124,3 +124,12 @@ do ->
     offset: ->
       @imap(offset)
   }
+
+  scrollTop = ->
+    (document.documentElement &&
+     document.documentElement.scrollTop) ||
+    document.body.scrollTop
+
+  Dom.extend {
+    scrollTop: scrollTop
+  }

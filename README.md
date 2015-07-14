@@ -147,6 +147,10 @@ For the class string `cls`, returns whether or not the element has that
 class string. If `cls` has multiple classes, this means that the element must
 have all of them for this method to return true.
 
+#### `Dom.scrollTop()`
+##### Returns
+The current vertical scroll position.
+
 ### HTML
 #### `.empty()`
 ##### Returns
