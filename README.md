@@ -339,7 +339,7 @@ a flat array with the found children for all elements.
 ##### Arguments
 * `url` [String]
 * `data` [Object]
-* `done` [Function] (status [Number], content [Object], headers [Object])
+* `done` [Function (status [Number], content [Object], headers [Object])]
 * `options` [Object]
   * `json` [Boolean]: Whether or not to parse the response as JSON
 
@@ -352,7 +352,7 @@ Same as `.post()`, but adds `{json: true}` to `options`.
 ##### Arguments
 * `url` [String]
 * `data` [Object]
-* `done` [Function] (status [Number], content [Object], headers [Object])
+* `done` [Function (status [Number], content [Object], headers [Object])]
 * `options` [Object]
   * `json` [Boolean]: Whether or not to parse the response as JSON
 
@@ -364,7 +364,7 @@ Same as `.put()`, but adds `{json: true}` to `options`.
 #### `Dom.get(url, done, options)`
 ##### Arguments
 * `url` [String]
-* `done` [Function] (status [Number], content [Object], headers [Object])
+* `done` [Function (status [Number], content [Object], headers [Object])]
 * `options` [Object]
   * `json` [Boolean]: Whether or not to parse the response as JSON
 
@@ -376,7 +376,7 @@ Same as `.get()`, but adds `{json: true}` to `options`.
 #### `Dom.del(url, done, options)`
 ##### Arguments
 * `url` [String]
-* `done` [Function] (status [Number], content [Object], headers [Object])
+* `done` [Function (status [Number], content [Object], headers [Object])]
 * `options` [Object]
   * `json` [Boolean]: Whether or not to parse the response as JSON
 
