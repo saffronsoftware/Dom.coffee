@@ -226,7 +226,7 @@ Dom('.thing').attr('data-id', '23')
 >> 23
 ```
 
-#### `.removeAttr(attr)
+#### `.removeAttr(attr)`
 ##### Returns
 A Dom instance.
 
