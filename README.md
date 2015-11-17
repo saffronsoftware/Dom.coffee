@@ -370,7 +370,7 @@ Same as `.put()`, but adds `{json: true}` to `options`.
 
 Makes a GET request.
 
-#### `Dom.getJSON(url, data, done, options)`
+#### `Dom.getJSON(url, done, options)`
 Same as `.get()`, but adds `{json: true}` to `options`.
 
 #### `Dom.del(url, done, options)`
