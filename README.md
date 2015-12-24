@@ -226,7 +226,7 @@ Dom('.thing').attr('data-id', '23')
 >> 23
 ```
 
-#### `.removeAttr(attr)
+#### `.removeAttr(attr)`
 ##### Returns
 A Dom instance.
 
@@ -350,7 +350,7 @@ Returns whether or not the element was found (e.g. after a selection).
 ##### Arguments
 * `url` [String]
 * `data` [Object]
-* `done` [Function] (status [Number], content [Object], headers [Object])
+* `done` [Function (status [Number], content [Object], headers [Object])]
 * `options` [Object]
   * `json` [Boolean]: Whether or not to parse the response as JSON
 
@@ -363,7 +363,7 @@ Same as `.post()`, but adds `{json: true}` to `options`.
 ##### Arguments
 * `url` [String]
 * `data` [Object]
-* `done` [Function] (status [Number], content [Object], headers [Object])
+* `done` [Function (status [Number], content [Object], headers [Object])]
 * `options` [Object]
   * `json` [Boolean]: Whether or not to parse the response as JSON
 
@@ -375,19 +375,19 @@ Same as `.put()`, but adds `{json: true}` to `options`.
 #### `Dom.get(url, done, options)`
 ##### Arguments
 * `url` [String]
-* `done` [Function] (status [Number], content [Object], headers [Object])
+* `done` [Function (status [Number], content [Object], headers [Object])]
 * `options` [Object]
   * `json` [Boolean]: Whether or not to parse the response as JSON
 
 Makes a GET request.
 
-#### `Dom.getJSON(url, data, done, options)`
+#### `Dom.getJSON(url, done, options)`
 Same as `.get()`, but adds `{json: true}` to `options`.
 
 #### `Dom.del(url, done, options)`
 ##### Arguments
 * `url` [String]
-* `done` [Function] (status [Number], content [Object], headers [Object])
+* `done` [Function (status [Number], content [Object], headers [Object])]
 * `options` [Object]
   * `json` [Boolean]: Whether or not to parse the response as JSON
 
