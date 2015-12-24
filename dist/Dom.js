@@ -956,7 +956,7 @@ Dom.extend({
 })();
 
 (function() {
-  var append, appendTo, checked, clone, disable, empty, enable, getAttribute, getHTML, getValue, remove, removeAttribute, setAttribute, setHTML, setValue;
+  var append, appendTo, checked, clone, disable, empty, enable, getAttribute, getHTML, getValue, remove, removeAttribute, selectedOption, setAttribute, setHTML, setValue;
   empty = function(el) {
     return el.innerHTML = '';
   };
@@ -1014,6 +1014,9 @@ Dom.extend({
   };
   checked = function(el) {
     return el.checked;
+  };
+  selectedOption = function(el) {
+    return el.options[el.selectedIndex];
   };
   setValue = function(el, value) {
     return el.value = value;
@@ -1100,6 +1103,9 @@ Dom.extend({
     },
     checked: function() {
       return this.imap(checked);
+    },
+    selectedOption: function() {
+      return Dom(this.imap(selectedOption));
     },
     value: function(value) {
       if (value != null) {

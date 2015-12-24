@@ -45,6 +45,8 @@ do ->
 
   checked = (el) -> el.checked
 
+  selectedOption = (el) -> el.options[el.selectedIndex]
+
   setValue = (el, value) -> el.value = value
 
   getValue = (el) ->
@@ -98,6 +100,8 @@ do ->
       return this
     checked: ->
       return @imap(checked)
+    selectedOption: ->
+      return Dom(@imap(selectedOption))
     value: (value) ->
       if value?
         @imap (el) -> setValue(el, value)

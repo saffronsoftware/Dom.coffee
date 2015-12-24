@@ -259,6 +259,11 @@ Removes the element.
 
 Returns whether or not an input is checked.
 
+#### `.selectedOption()`
+Returns the selected option for a `<select>`.
+##### Returns
+A Dom instance.
+
 #### `.value([value])`
 ##### Arguments
 * `value`: The optional value to set the value to
@@ -332,6 +337,12 @@ returns it if it does.
 A new Dom instance with the element's children that match `selector`. If the
 current instance has more than one element, this function will return
 a flat array with the found children for all elements.
+
+#### `.found()`
+##### Returns
+`true` or `false`.
+
+Returns whether or not the element was found (e.g. after a selection).
 
 ### HTTP
 
