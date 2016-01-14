@@ -895,6 +895,11 @@ Dom.prototype.extend({
       return results[0];
     }
     return results;
+  },
+  elem: function() {
+    return this.imap(function(x) {
+      return x;
+    });
   }
 });
 

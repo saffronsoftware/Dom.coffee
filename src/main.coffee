@@ -59,6 +59,8 @@ Dom.prototype.extend {
     results = @map.apply(this, arguments)
     return results[0] if results.length == 1
     return results
+  elem: ->
+    @imap((x) -> x)
 }
 
 Dom.extend {

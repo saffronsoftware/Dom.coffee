@@ -29,6 +29,23 @@ Dom(document)
 Dom(window)
 ```
 
+### General
+#### `.map(), .reduce(), .filter()`
+These work as you would expect with regular collections. They operate on the
+raw DOM elements.
+
+#### `.imap()`
+Like `.map()`, but if there is only one element, returns the element itself
+instead of an array of length 1.
+
+#### `.elem()`
+Returns the raw DOM elements in the selection. This uses `.imap()`, so if there
+is only one element, the element itself will be returned. If there are
+multiple, an array will be returned.
+
+##### Returns
+An array of DOM elements, or a single DOM element.
+
 ### CSS
 
 #### `.style(name[, value])`
